@@ -1,3 +1,5 @@
+package components;
+
 public class Register {
 
     private int value;

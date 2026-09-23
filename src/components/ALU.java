@@ -1,3 +1,5 @@
+package components;
+
 public class ALU {
 
     public Register ALU_A = new Register(Register.WRITE_ONLY);

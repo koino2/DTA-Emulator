@@ -6,15 +6,15 @@ public class Processor {
 
     float nanosPerTick = (float) (clockTime * 1000000000);
 
+    boolean running = false;
+
+    long lastTickTime = 0;
+
     public void setClockSpeed(int clockSpeed){
         this.clockSpeed = clockSpeed;
         clockTime = (double) 1 / clockSpeed;
         nanosPerTick = (float) (clockTime * 1000000000);
     }
-
-    boolean running = false;
-
-    long lastTickTime = 0;
 
     public void startClock(){
         running = true;
