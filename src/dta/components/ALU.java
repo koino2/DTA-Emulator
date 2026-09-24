@@ -21,9 +21,19 @@ public class ALU {
             case 2:
                 ALU_OUT.setValue(a * b);
             case 3:
-                ALU_OUT.setValue(a / b);
+                if (b != 0) {
+                    ALU_OUT.setValue(a / b);
+                }
+                else {
+                    ALU_OUT.setValue(0);
+                }
             case 4:
-                ALU_OUT.setValue(a % b);
+                if (b != 0) {
+                    ALU_OUT.setValue(a % b);
+                }
+                else {
+                    ALU_OUT.setValue(0);
+                }
         }
     }
 }
