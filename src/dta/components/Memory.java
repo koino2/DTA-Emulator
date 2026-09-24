@@ -47,23 +47,23 @@ public class Memory {
 
         if (base+1 < values.length) {
             if (base+1 >= ROMSize) {
-                R_OUT.hardwareSetValue(values[base+1]);
+                R_OUT1.hardwareSetValue(values[base+1]);
             }
             else {
                 if (ROM.length > base) {
-                    R_OUT.hardwareSetValue(ROM[base+1]);
-                } else R_OUT.hardwareSetValue(0);
+                    R_OUT1.hardwareSetValue(ROM[base+1]);
+                } else R_OUT1.hardwareSetValue(0);
             }
         }
 
         if (base+2 < values.length) {
             if (base+2 >= ROMSize) {
-                R_OUT.hardwareSetValue(values[base+2]);
+                R_OUT2.hardwareSetValue(values[base+2]);
             }
             else {
                 if (ROM.length > base) {
-                    R_OUT.hardwareSetValue(ROM[base+2]);
-                } else R_OUT.hardwareSetValue(0);
+                    R_OUT2.hardwareSetValue(ROM[base+2]);
+                } else R_OUT2.hardwareSetValue(0);
             }
         }
     }

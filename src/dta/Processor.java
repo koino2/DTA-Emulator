@@ -75,6 +75,8 @@ public class Processor {
 
         memory.update();
 
+        System.out.println(memory.R_OUT.hardwareGetValue());
+
         IR1.setValue(memory.R_OUT.hardwareGetValue());
         IR2.setValue(memory.R_OUT1.hardwareGetValue());
         IR3.setValue(memory.R_OUT2.hardwareGetValue());
@@ -87,7 +89,7 @@ public class Processor {
 
         update();
 
-        programCounter.PC.setValue(programCounter.PC.hardwareGetValue()+3);
+        programCounter.PC.hardwareSetValue(programCounter.PC.hardwareGetValue()+3);
     }
 
     public void execute(){
