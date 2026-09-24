@@ -66,21 +66,69 @@ public class Processor {
 
         memory.R_ADDR.setValue(programCounter.PC.getValue());
 
+        memory.update();
+
         IR1.setValue(memory.R_OUT.getValue());
         IR2.setValue(memory.R_OUT1.getValue());
         IR3.setValue(memory.R_OUT2.getValue());
 
         memory.R_ADDR.setValue(temp);
 
-        // execute
+        memory.update();
+
+        execute();
+
+        update();
 
         programCounter.PC.setValue(programCounter.PC.getValue()+3);
+    }
+
+    public void execute(){
+        int instruction = IR1.getValue() & 0b11;
+
+        if (instruction == 1){
+            copy(IR2.getValue(), IR3.getValue());
+        }
+        else if (instruction == 2){
+            set(IR2.getValue(), IR3.getValue());
+        }
+        else if (instruction == 3){
+            pulse(IR2.getValue());
+        }
+    }
+
+    public void copy(int regA, int regB){
+        if (registers.size() > regA && registers.size() > regB){
+            Register A = registers.get(regA);
+            Register B = registers.get(regB);
+            B.setValue(A.getValue());
+        }
+    }
+    public void set(int reg, int value){
+        if (registers.size() > reg){
+            Register A = registers.get(reg);
+            A.setValue(value);
+        }
+    }
+    public void pulse(int pin){
+        if (pins.size() > pin){
+            Pin A = pins.get(pin);
+            A.onFire();
+        }
+    }
+
+    public void update(){
+        memory.update();
+        alu.update();
+        ram.update();
+        programCounter.update();
+        dsc.update();
     }
 
     public Clock clock = new Clock() {
         @Override
         public void tick() {
-            tick();
+            Processor.this.tick();
         }
     };
     public void setClockSpeed(int speed){clock.setClockSpeed(speed);}

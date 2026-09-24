@@ -20,4 +20,8 @@ public class ProgramCounter {
         }
     };
 
+    public void update(){
+
+    }
+
 }
