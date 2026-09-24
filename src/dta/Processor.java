@@ -56,9 +56,25 @@ public class Processor {
         pins.put(2, programCounter.JUMP);
         pins.put(3, dsc.DSC_WRITE);
     }
+    
+    public Register IR1 = new Register();
+    public Register IR2 = new Register();
+    public Register IR3 = new Register();
 
     public void tick(){
+        int temp = memory.R_ADDR.getValue();
 
+        memory.R_ADDR.setValue(programCounter.PC.getValue());
+
+        IR1.setValue(memory.R_OUT.getValue());
+        IR2.setValue(memory.R_OUT1.getValue());
+        IR3.setValue(memory.R_OUT2.getValue());
+
+        memory.R_ADDR.setValue(temp);
+
+        // execute
+
+        programCounter.PC.setValue(programCounter.PC.getValue()+3);
     }
 
     public Clock clock = new Clock() {
