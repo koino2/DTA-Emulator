@@ -15,6 +15,14 @@ public class Memory {
     public Register W_ADDR = new Register(Register.WRITE_ONLY);
     public Register W_VAL = new Register(Register.WRITE_ONLY);
 
+    public int[] ROM;
+    public int ROMSize;
+
+    public Memory(int[] ROM, int ROMSize){
+        this.ROM = ROM;
+        this.ROMSize = ROMSize;
+    }
+
     public Pin WRITE = new Pin() {
         @Override
         public void onFire() {
@@ -25,9 +33,33 @@ public class Memory {
 
     public void update(){
         int base = R_ADDR.getValue();
-        if (base < values.length) R_OUT.setValue(values[base]);
-        if (base+1 < values.length) R_OUT1.setValue(values[base+1]);
-        if (base+2 < values.length) R_OUT2.setValue(values[base+2]);
+
+        if (base < values.length) {
+            if (base >= ROMSize) {
+                R_OUT.setValue(values[base]);
+            }
+            else {
+                R_OUT.setValue(ROM[base]);
+            }
+        }
+
+        if (base+1 < values.length) {
+            if (base+1 >= ROMSize) {
+                R_OUT.setValue(values[base+1]);
+            }
+            else {
+                R_OUT.setValue(ROM[base+1]);
+            }
+        }
+
+        if (base+2 < values.length) {
+            if (base+2 >= ROMSize) {
+                R_OUT.setValue(values[base+2]);
+            }
+            else {
+                R_OUT.setValue(ROM[base+2]);
+            }
+        }
     }
 
 }

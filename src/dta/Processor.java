@@ -7,11 +7,21 @@ import java.util.Map;
 
 public class Processor {
 
-    public Memory memory = new Memory();
+    public Memory memory;
     public ALU alu = new ALU();
     public RAM ram = new RAM();
     public ProgramCounter programCounter = new ProgramCounter();
     public DSC dsc = new DSC();
+
+    int romSize = 512;
+    public void setROMSize(int ROMSize){
+        this.romSize = ROMSize;
+        memory.ROMSize=romSize;
+    }
+
+    public Processor(int[] ROM){
+        memory = new Memory(ROM, romSize);
+    }
 
     final Map<Integer, Register> registers = new HashMap<>();
     {
