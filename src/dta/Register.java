@@ -1,4 +1,4 @@
-package components;
+package dta;
 
 public class Register {
 

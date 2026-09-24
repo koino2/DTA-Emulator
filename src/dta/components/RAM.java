@@ -1,4 +1,7 @@
-package components;
+package dta.components;
+
+import dta.Pin;
+import dta.Register;
 
 public class RAM {
     public int[] values = new int[256];

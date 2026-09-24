@@ -1,6 +1,6 @@
-package components;
+package dta;
 
-public class Clock {
+public abstract class Clock {
 
     public int clockSpeed = 1_000;
 
@@ -42,7 +42,7 @@ public class Clock {
         thread.start();
     }
 
-    public void tick(){
+    public abstract void tick(){
 
     }
 }

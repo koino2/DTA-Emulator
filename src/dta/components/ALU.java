@@ -1,4 +1,6 @@
-package components;
+package dta.components;
+
+import dta.Register;
 
 public class ALU {
 
