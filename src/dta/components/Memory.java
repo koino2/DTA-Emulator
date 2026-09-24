@@ -39,7 +39,9 @@ public class Memory {
                 R_OUT.setValue(values[base]);
             }
             else {
-                R_OUT.setValue(ROM[base]);
+                if (ROM.length > base) {
+                    R_OUT.setValue(ROM[base]);
+                } else R_OUT.setValue(0);
             }
         }
 
@@ -48,7 +50,9 @@ public class Memory {
                 R_OUT.setValue(values[base+1]);
             }
             else {
-                R_OUT.setValue(ROM[base+1]);
+                if (ROM.length > base) {
+                    R_OUT.setValue(ROM[base+1]);
+                } else R_OUT.setValue(0);
             }
         }
 
@@ -57,7 +61,9 @@ public class Memory {
                 R_OUT.setValue(values[base+2]);
             }
             else {
-                R_OUT.setValue(ROM[base+2]);
+                if (ROM.length > base) {
+                    R_OUT.setValue(ROM[base+2]);
+                } else R_OUT.setValue(0);
             }
         }
     }
