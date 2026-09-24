@@ -42,7 +42,5 @@ public abstract class Clock {
         thread.start();
     }
 
-    public abstract void tick(){
-
-    }
+    public abstract void tick();
 }
