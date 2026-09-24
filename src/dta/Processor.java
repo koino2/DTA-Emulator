@@ -13,18 +13,15 @@ public class Processor {
     public ProgramCounter programCounter = new ProgramCounter();
     public DSC dsc = new DSC();
 
-    int romSize = 512;
-    public void setROMSize(int ROMSize){
-        this.romSize = ROMSize;
-        memory.ROMSize=romSize;
-    }
-
-    public Processor(int[] ROM){
+    public Processor(int[] ROM, int romSize){
         memory = new Memory(ROM, romSize);
+
+        addRegisters();
+        addPins();
     }
 
     final Map<Integer, Register> registers = new HashMap<>();
-    {
+    void addRegisters(){
         registers.put(0, memory.R_ADDR);
         registers.put(1, memory.R_OUT);
         registers.put(2, memory.R_OUT1);
@@ -60,7 +57,7 @@ public class Processor {
     }
 
     final Map<Integer, Pin> pins = new HashMap<>();
-    {
+    void addPins(){
         pins.put(0, memory.WRITE);
         pins.put(1, ram.RAM_WRITE);
         pins.put(2, programCounter.JUMP);
@@ -94,6 +91,9 @@ public class Processor {
     }
 
     public void execute(){
+
+        System.out.println("EXECUTING: " + IR1.getValue() + " " + IR2.getValue() + " " + IR3.getValue());
+
         int instruction = IR1.getValue() & 0b11;
 
         if (instruction == 1){
