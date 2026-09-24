@@ -15,13 +15,13 @@ public class RAM {
     public Pin RAM_WRITE = new Pin() {
         @Override
         public void onFire() {
-            int base = RAM_W_ADDR.getValue();
-            if (base < values.length) values[base] = RAM_W_VAL.getValue();
+            int base = RAM_W_ADDR.hardwareGetValue();
+            if (base < values.length) values[base] = RAM_W_VAL.hardwareGetValue();
         }
     };
 
     public void update(){
-        int base = RAM_R_ADDR.getValue();
-        if (base < values.length) RAM_R_OUT.setValue(values[base]);
+        int base = RAM_R_ADDR.hardwareGetValue();
+        if (base < values.length) RAM_R_OUT.hardwareSetValue(values[base]);
     }
 }

@@ -36,4 +36,12 @@ public class Register {
         }
         return 0;
     }
+
+    public void hardwareSetValue(int value){
+        this.value = value;
+    }
+
+    public int hardwareGetValue(){
+        return value;
+    }
 }

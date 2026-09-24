@@ -26,44 +26,44 @@ public class Memory {
     public Pin WRITE = new Pin() {
         @Override
         public void onFire() {
-            int base = W_ADDR.getValue();
-            if (base < values.length) values[base] = W_VAL.getValue();
+            int base = W_ADDR.hardwareGetValue();
+            if (base < values.length) values[base] = W_VAL.hardwareGetValue();
         }
     };
 
     public void update(){
-        int base = R_ADDR.getValue();
+        int base = R_ADDR.hardwareGetValue();
 
         if (base < values.length) {
             if (base >= ROMSize) {
-                R_OUT.setValue(values[base]);
+                R_OUT.hardwareSetValue(values[base]);
             }
             else {
                 if (ROM.length > base) {
-                    R_OUT.setValue(ROM[base]);
-                } else R_OUT.setValue(0);
+                    R_OUT.hardwareSetValue(ROM[base]);
+                } else R_OUT.hardwareSetValue(0);
             }
         }
 
         if (base+1 < values.length) {
             if (base+1 >= ROMSize) {
-                R_OUT.setValue(values[base+1]);
+                R_OUT.hardwareSetValue(values[base+1]);
             }
             else {
                 if (ROM.length > base) {
-                    R_OUT.setValue(ROM[base+1]);
-                } else R_OUT.setValue(0);
+                    R_OUT.hardwareSetValue(ROM[base+1]);
+                } else R_OUT.hardwareSetValue(0);
             }
         }
 
         if (base+2 < values.length) {
             if (base+2 >= ROMSize) {
-                R_OUT.setValue(values[base+2]);
+                R_OUT.hardwareSetValue(values[base+2]);
             }
             else {
                 if (ROM.length > base) {
-                    R_OUT.setValue(ROM[base+2]);
-                } else R_OUT.setValue(0);
+                    R_OUT.hardwareSetValue(ROM[base+2]);
+                } else R_OUT.hardwareSetValue(0);
             }
         }
     }

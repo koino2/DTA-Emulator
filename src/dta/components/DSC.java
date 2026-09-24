@@ -27,35 +27,35 @@ public class DSC {
     public Pin DSC_WRITE = new Pin() {
         @Override
         public void onFire() {
-            if (devices.size() > DSC_DEVICE.getValue()) {
-                Device currentDevice = devices.get(DSC_DEVICE.getValue());
+            if (devices.size() > DSC_DEVICE.hardwareGetValue()) {
+                Device currentDevice = devices.get(DSC_DEVICE.hardwareGetValue());
 
-                currentDevice.DSC_D0.setValue(DSC_D0.getValue());
-                currentDevice.DSC_D1.setValue(DSC_D1.getValue());
-                currentDevice.DSC_D2.setValue(DSC_D2.getValue());
-                currentDevice.DSC_D3.setValue(DSC_D3.getValue());
-                currentDevice.DSC_D4.setValue(DSC_D4.getValue());
-                currentDevice.DSC_D5.setValue(DSC_D5.getValue());
-                currentDevice.DSC_D6.setValue(DSC_D6.getValue());
-                currentDevice.DSC_D7.setValue(DSC_D7.getValue());
+                currentDevice.DSC_D0.hardwareSetValue(DSC_D0.hardwareGetValue());
+                currentDevice.DSC_D1.hardwareSetValue(DSC_D1.hardwareGetValue());
+                currentDevice.DSC_D2.hardwareSetValue(DSC_D2.hardwareGetValue());
+                currentDevice.DSC_D3.hardwareSetValue(DSC_D3.hardwareGetValue());
+                currentDevice.DSC_D4.hardwareSetValue(DSC_D4.hardwareGetValue());
+                currentDevice.DSC_D5.hardwareSetValue(DSC_D5.hardwareGetValue());
+                currentDevice.DSC_D6.hardwareSetValue(DSC_D6.hardwareGetValue());
+                currentDevice.DSC_D7.hardwareSetValue(DSC_D7.hardwareGetValue());
             }
         }
     };
 
     public void update(){
-        if (devices.size() > DSC_DEVICE.getValue()){
-            Device currentDevice = devices.get(DSC_DEVICE.getValue());
+        if (devices.size() > DSC_DEVICE.hardwareGetValue()){
+            Device currentDevice = devices.get(DSC_DEVICE.hardwareGetValue());
 
-            DSC_D0.setValue(currentDevice.DSC_D0.getValue());
-            DSC_D1.setValue(currentDevice.DSC_D1.getValue());
-            DSC_D2.setValue(currentDevice.DSC_D2.getValue());
-            DSC_D3.setValue(currentDevice.DSC_D3.getValue());
-            DSC_D4.setValue(currentDevice.DSC_D4.getValue());
-            DSC_D5.setValue(currentDevice.DSC_D5.getValue());
-            DSC_D6.setValue(currentDevice.DSC_D6.getValue());
-            DSC_D7.setValue(currentDevice.DSC_D7.getValue());
+            DSC_D0.hardwareSetValue(currentDevice.DSC_D0.hardwareGetValue());
+            DSC_D1.hardwareSetValue(currentDevice.DSC_D1.hardwareGetValue());
+            DSC_D2.hardwareSetValue(currentDevice.DSC_D2.hardwareGetValue());
+            DSC_D3.hardwareSetValue(currentDevice.DSC_D3.hardwareGetValue());
+            DSC_D4.hardwareSetValue(currentDevice.DSC_D4.hardwareGetValue());
+            DSC_D5.hardwareSetValue(currentDevice.DSC_D5.hardwareGetValue());
+            DSC_D6.hardwareSetValue(currentDevice.DSC_D6.hardwareGetValue());
+            DSC_D7.hardwareSetValue(currentDevice.DSC_D7.hardwareGetValue());
 
-            DSC_STATUS.setValue(currentDevice.DSC_STATUS.getValue());
+            DSC_STATUS.hardwareSetValue(currentDevice.DSC_STATUS.hardwareGetValue());
         }
 
         for (Device device : devices){

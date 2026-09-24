@@ -14,8 +14,8 @@ public class ProgramCounter {
     public Pin JUMP = new Pin() {
         @Override
         public void onFire() {
-            if (PC_VALUE.getValue() == PC_TARGET.getValue()){
-                PC.setValue(PC_JMP.getValue());
+            if (PC_VALUE.hardwareGetValue() == PC_TARGET.hardwareGetValue()){
+                PC.hardwareSetValue(PC_JMP.hardwareGetValue());
             }
         }
     };

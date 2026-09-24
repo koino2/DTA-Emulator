@@ -69,15 +69,15 @@ public class Processor {
     public Register IR3 = new Register();
 
     public void tick(){
-        int temp = memory.R_ADDR.getValue();
+        int temp = memory.R_ADDR.hardwareGetValue();
 
-        memory.R_ADDR.setValue(programCounter.PC.getValue());
+        memory.R_ADDR.setValue(programCounter.PC.hardwareGetValue());
 
         memory.update();
 
-        IR1.setValue(memory.R_OUT.getValue());
-        IR2.setValue(memory.R_OUT1.getValue());
-        IR3.setValue(memory.R_OUT2.getValue());
+        IR1.setValue(memory.R_OUT.hardwareGetValue());
+        IR2.setValue(memory.R_OUT1.hardwareGetValue());
+        IR3.setValue(memory.R_OUT2.hardwareGetValue());
 
         memory.R_ADDR.setValue(temp);
 
@@ -87,7 +87,7 @@ public class Processor {
 
         update();
 
-        programCounter.PC.setValue(programCounter.PC.getValue()+3);
+        programCounter.PC.setValue(programCounter.PC.hardwareGetValue()+3);
     }
 
     public void execute(){
