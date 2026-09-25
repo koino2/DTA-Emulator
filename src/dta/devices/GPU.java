@@ -27,6 +27,7 @@ public class GPU extends Device{
                         g.fillRect(x*10, y*10, 10, 10);
                     }
                 }
+                repaint();
             }
         };
         j.setContentPane(panel);
