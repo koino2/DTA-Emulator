@@ -10,47 +10,11 @@ public class Main {
         String program = """
                 0 0 0
                 2 27 0
-                2 4 512
-                2 5 0
-                3 0 0
-                2 4 513
-                2 5 0
-                3 0 0
-                2 0 512
-                1 1 6
-                2 7 2
-                1 9 5
-                2 4 512
-                3 0 0
-                2 0 512
-                1 1 15
-                2 16 64
-                2 17 87
-                3 2 0
-                2 16 63
-                2 17 99
-                3 2 0
-                2 0 512
-                1 1 19
-                2 0 512
-                1 1 20
-                2 21 1
                 2 18 1
-                2 14 24
-                2 4 512
-                2 5 1
-                3 0 0
-                2 14 108
-                2 4 512
-                2 5 0
-                3 0 0
-                2 0 513
-                1 1 6
-                2 7 1
-                1 9 5
-                2 4 513
-                3 0 0
-                2 14 66
+                2 19 5
+                2 20 5
+                2 21 1
+                3 3 0
         """;
 
         Scanner scanner = new Scanner(program);
@@ -68,7 +32,7 @@ public class Main {
 
         processor.dsc.devices.add(new GPU());
 
-        processor.setClockSpeed(200);
+        processor.setClockSpeed(5);
         processor.startClock();
     }
 }
