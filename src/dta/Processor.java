@@ -61,7 +61,11 @@ public class Processor {
         pins.put(0, memory.WRITE);
         pins.put(1, ram.RAM_WRITE);
         pins.put(2, programCounter.JUMP);
-        pins.put(3, dsc.DSC_WRITE);
+        pins.put(3, dsc.DSC_P0);
+        pins.put(4, dsc.DSC_P1);
+        pins.put(5, dsc.DSC_P2);
+        pins.put(6, dsc.DSC_P3);
+        pins.put(7, dsc.DSC_P4);
     }
     
     public Register IR1 = new Register();

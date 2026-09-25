@@ -1,5 +1,5 @@
 import dta.Processor;
-import dta.devices.DisplayAdapterBW;
+import dta.devices.ColorDisplayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +67,7 @@ public class Main {
 
         Processor processor = new Processor(ROM, 512);
 
-        processor.dsc.devices.add(new DisplayAdapterBW());
+        processor.dsc.devices.add(new ColorDisplayAdapter());
 
         processor.setClockSpeed(10000);
         processor.startClock();
