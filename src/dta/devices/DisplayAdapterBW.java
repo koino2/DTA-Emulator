@@ -3,11 +3,11 @@ package dta.devices;
 import javax.swing.*;
 import java.awt.*;
 
-public class GPU extends Device{
+public class DisplayAdapterBW extends Device{
 
     public boolean[][] screen = new boolean[64][64];
 
-    public GPU(){
+    public DisplayAdapterBW(){
         JFrame j = new JFrame("Screen");
         j.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         j.setSize(640, 640);

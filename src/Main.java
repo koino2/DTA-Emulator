@@ -1,5 +1,5 @@
 import dta.Processor;
-import dta.devices.GPU;
+import dta.devices.DisplayAdapterBW;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,9 +67,9 @@ public class Main {
 
         Processor processor = new Processor(ROM, 512);
 
-        processor.dsc.devices.add(new GPU());
+        processor.dsc.devices.add(new DisplayAdapterBW());
 
-        processor.setClockSpeed(500);
+        processor.setClockSpeed(10000);
         processor.startClock();
     }
 }

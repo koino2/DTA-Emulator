@@ -38,15 +38,6 @@ public class DSC {
                 currentDevice.DSC_D5.hardwareSetValue(DSC_D5.hardwareGetValue());
                 currentDevice.DSC_D6.hardwareSetValue(DSC_D6.hardwareGetValue());
                 currentDevice.DSC_D7.hardwareSetValue(DSC_D7.hardwareGetValue());
-
-                System.out.println(currentDevice.DSC_D0.hardwareGetValue() + " target " + DSC_D0.hardwareGetValue());
-                System.out.println(currentDevice.DSC_D1.hardwareGetValue() + " target " + DSC_D1.hardwareGetValue());
-                System.out.println(currentDevice.DSC_D2.hardwareGetValue() + " target " + DSC_D2.hardwareGetValue());
-                System.out.println(currentDevice.DSC_D3.hardwareGetValue() + " target " + DSC_D3.hardwareGetValue());
-                System.out.println(currentDevice.DSC_D4.hardwareGetValue() + " target " + DSC_D4.hardwareGetValue());
-                System.out.println(currentDevice.DSC_D5.hardwareGetValue() + " target " + DSC_D5.hardwareGetValue());
-                System.out.println(currentDevice.DSC_D6.hardwareGetValue() + " target " + DSC_D6.hardwareGetValue());
-                System.out.println(currentDevice.DSC_D7.hardwareGetValue() + " target " + DSC_D7.hardwareGetValue());
             }
         }
     };
