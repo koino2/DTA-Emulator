@@ -5,7 +5,7 @@ import dta.Register;
 
 public class Memory {
 
-    public int[] values = new int[256];
+    public int[] values = new int[4096];
 
     public Register R_ADDR = new Register(Register.WRITE_ONLY);
     public Register R_OUT = new Register(Register.READ_ONLY);

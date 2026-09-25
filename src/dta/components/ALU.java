@@ -16,10 +16,13 @@ public class ALU {
         switch (ALU_OP.hardwareGetValue()){
             case 0:
                 ALU_OUT.hardwareSetValue(a + b);
+                break;
             case 1:
                 ALU_OUT.hardwareSetValue(a - b);
+                break;
             case 2:
                 ALU_OUT.hardwareSetValue(a * b);
+                break;
             case 3:
                 if (b != 0) {
                     ALU_OUT.hardwareSetValue(a / b);
@@ -27,6 +30,7 @@ public class ALU {
                 else {
                     ALU_OUT.hardwareSetValue(0);
                 }
+                break;
             case 4:
                 if (b != 0) {
                     ALU_OUT.hardwareSetValue(a % b);
@@ -34,6 +38,7 @@ public class ALU {
                 else {
                     ALU_OUT.hardwareSetValue(0);
                 }
+                break;
         }
     }
 }
