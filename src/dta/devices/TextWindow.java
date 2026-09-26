@@ -4,21 +4,20 @@ import dta.Pin;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class TextWindow extends Device{
 
     public char[][] screen = new char[64][64];
     public JPanel panel;
 
+    public Font font = new Font("OCR A Extended", Font.PLAIN, 50);
+
     {
-        for (int y = 0; y < screen.length; y++) {
-            for (int x = 0; x < screen[y].length; x++) {
-                screen[y][x] = ' ';
-            }
+        for (char[] chars : screen) {
+            Arrays.fill(chars, ' ');
         }
     }
-
-    public Font font = new Font("Fixedsys Regular", Font.PLAIN, 20);
 
     public TextWindow(){
         JFrame j = new JFrame("Screen");
@@ -27,6 +26,9 @@ public class TextWindow extends Device{
         panel = new JPanel(){
             @Override
             protected void paintComponent(Graphics g){
+                g.setColor(Color.black);
+                g.fillRect(0, 0, getWidth(), getHeight());
+                g.setColor(Color.WHITE);
                 g.setFont(font);
                 FontMetrics fm = g.getFontMetrics(font);
                 int height = fm.getHeight();
