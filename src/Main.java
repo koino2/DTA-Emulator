@@ -18,7 +18,7 @@ public class Main {
 
         processor.dsc.devices.add(new ColorDisplayAdapter());
 
-        processor.setClockSpeed(10000);
+        processor.setClockSpeed(5000);
         processor.startClock();
     }
 }

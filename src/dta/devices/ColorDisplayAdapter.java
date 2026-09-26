@@ -21,8 +21,6 @@ public class ColorDisplayAdapter extends Device{
     public ColorDisplayAdapter(){
         JFrame j = new JFrame("Screen");
         j.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        j.setSize(640, 640);
-        j.setLocationRelativeTo(null);
 
         panel = new JPanel(){
             @Override
@@ -35,7 +33,14 @@ public class ColorDisplayAdapter extends Device{
                 }
             }
         };
-        j.setContentPane(panel);
+        panel.setSize(640, 640);
+        panel.setPreferredSize(new Dimension(640, 640));
+        j.add(panel);
+
+        j.pack();
+
+        j.setLocationRelativeTo(null);
+        j.setResizable(false);
 
         j.setVisible(true);
     }
