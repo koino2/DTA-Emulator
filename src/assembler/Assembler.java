@@ -126,6 +126,7 @@ public class Assembler {
                     }
                     output.add(3);
                     output.add(getPin(parts[1]));
+                    output.add(0);
             }
         }
 
@@ -149,26 +150,30 @@ public class Assembler {
     }
 
     public static int getRegister(String register){
-        if (!registers.containsKey(register)){
+        String token = register.toUpperCase();
+        if (!registers.containsKey(token)){
             System.out.println("Invalid register: "+register);
             return 0;
         }
-        return registers.get(register);
+        return registers.get(token);
     }
 
     public static int getPin(String pin){
-        if (!pins.containsKey(pin)){
+        String token = pin.toUpperCase();
+        if (!pins.containsKey(token)){
             System.out.println("Invalid pin: "+pin);
             return 0;
         }
-        return pins.get(pin);
+        return pins.get(token);
     }
 
     public static int resolveValue(String token, Map<String, Integer> labels){
         token = token.toUpperCase();
 
-        if (String.valueOf(Integer.parseInt(token)).equals(token)){
-            return Integer.parseInt(token);
+        try {
+            Integer.parseInt(token);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
         }
 
         if (labels.containsKey(token)){
