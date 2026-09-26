@@ -78,7 +78,7 @@ public class Assembler {
 
                 if (markers.containsKey(marker)){System.out.println("Duplicate marker: "+line);}
 
-                markers.put(marker, address);
+                markers.put(marker.toUpperCase(), address);
             } else {
                 address += 3;
             }
@@ -168,16 +168,16 @@ public class Assembler {
     }
 
     public static int resolveValue(String token, Map<String, Integer> labels){
-        token = token.toUpperCase();
+        token = token.toUpperCase().strip();
 
         try {
-            Integer.parseInt(token);
+            return Integer.parseInt(token);
         } catch (NumberFormatException e) {
-            throw new RuntimeException(e);
+
         }
 
         if (labels.containsKey(token)){
-            return labels.get(token);
+            return labels.get(token) - 3;
         }
 
         if (aluOps.containsKey(token)){
