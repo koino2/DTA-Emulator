@@ -60,6 +60,7 @@ public class Assembler {
 
     public static int[] assemble (String assembly){
         Map<String, Integer> markers = new HashMap<>();
+        Map<String, Integer> consts = new HashMap<>();
 
         String[] lines = assembly.split("\\R");
 
@@ -81,6 +82,27 @@ public class Assembler {
                 markers.put(marker.toUpperCase(), address);
             } else {
                 address += 3;
+            }
+
+        }
+
+        for (String l : lines){
+
+            String line = cleanLine(l);
+            if (line.isEmpty()) continue;
+            String[] parts = line.split("\\s+");
+
+            if (parts[0].equalsIgnoreCase("const")){
+
+                if (parts.length != 3){System.out.println("Invalid constant: "+line);}
+
+                String name = parts[1];
+
+                if (consts.containsKey(name)){System.out.println("Duplicate constant: "+line);}
+
+                int value = resolveValue(parts[2], markers, consts);
+
+                consts.put(name.toUpperCase(), value);
             }
 
         }
@@ -118,7 +140,7 @@ public class Assembler {
                     }
                     output.add(2);
                     output.add(getRegister(parts[1]));
-                    output.add(resolveValue(parts[2], markers));
+                    output.add(resolveValue(parts[2], markers, consts));
                     break;
                 case "PULSE":
                     if (parts.length != 2){
@@ -167,7 +189,7 @@ public class Assembler {
         return pins.get(token);
     }
 
-    public static int resolveValue(String token, Map<String, Integer> labels){
+    public static int resolveValue(String token, Map<String, Integer> labels, Map<String, Integer> consts){
         token = token.toUpperCase().strip();
 
         try {
@@ -177,6 +199,10 @@ public class Assembler {
         }
 
         if (labels.containsKey(token)){
+            return labels.get(token) - 3;
+        }
+
+        if (consts.containsKey(token)){
             return labels.get(token) - 3;
         }
 
