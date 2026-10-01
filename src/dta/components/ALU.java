@@ -43,7 +43,7 @@ public class ALU {
                 if (a > b) {
                     ALU_OUT.hardwareSetValue(1);
                 }
-                if (b > a) {
+                else if (b > a) {
                     ALU_OUT.hardwareSetValue(2);
                 } else {
                     ALU_OUT.hardwareSetValue(0);

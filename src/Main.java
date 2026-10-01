@@ -9,16 +9,16 @@ import java.nio.file.Path;
 public class Main {
     public static void main(String[] args) {
         int[] ROM = null; try {
-            ROM = Assembler.assemble(Files.readString(Path.of("..\\DTA\\programs\\gpu_colour_gradient\\gpu_colour_gradient.asm")));
+            ROM = Assembler.assemble(Files.readString(Path.of("../DTA/programs/3d_cube/cube.asm")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        Processor processor = new Processor(ROM, 512);
+        Processor processor = new Processor(ROM, 2500);
 
         processor.dsc.devices.add(new ColorDisplayAdapter());
 
-        processor.setClockSpeed(10000);
+        processor.setClockSpeed(50);
         processor.startClock();
     }
 }

@@ -68,10 +68,27 @@ public class ColorDisplayAdapter extends Device{
                     int B = DSC_D5.getValue();
 
                     screen[x][y] = new Color(R, G, B);
-                    panel.repaint();
 
                     clearRegisters();
                 }
+            }
+        };
+
+        DSC_P1 = new Pin() {
+            @Override
+            public void onFire() {
+                for (int y = 0; y < screen.length; y++) {
+                    for (int x = 0; x < screen[y].length; x++) {
+                        screen[y][x] = new Color(0, 0, 0);
+                    }
+                }
+            }
+        };
+
+        DSC_P2 = new Pin() {
+            @Override
+            public void onFire() {
+                panel.repaint();
             }
         };
     }

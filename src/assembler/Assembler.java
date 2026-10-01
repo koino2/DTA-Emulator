@@ -56,6 +56,7 @@ public class Assembler {
         aluOps.put("MUL", 2);
         aluOps.put("DIV", 3);
         aluOps.put("MOD", 4);
+        aluOps.put("COMP", 5);
     }
 
     public static int[] assemble (String assembly){
@@ -80,14 +81,14 @@ public class Assembler {
                 if (markers.containsKey(marker)){System.out.println("Duplicate marker: "+line);}
 
                 markers.put(marker.toUpperCase(), address);
-            } else {
+            } else if (!parts[0].equalsIgnoreCase("const")){
                 address += 3;
             }
 
         }
 
         for (String l : lines){
-
+            System.out.println("Assembling: "+l);
             String line = cleanLine(l);
             if (line.isEmpty()) continue;
             String[] parts = line.split("\\s+");
@@ -125,6 +126,7 @@ public class Assembler {
                     output.add(0);
                     output.add(0);
                     output.add(0);
+                    System.out.println("Assembled to 0 0 0");
                     break;
                 case "COPY":
                     if (parts.length != 3){
@@ -133,6 +135,7 @@ public class Assembler {
                     output.add(1);
                     output.add(getRegister(parts[1]));
                     output.add(getRegister(parts[2]));
+                    System.out.println("Assembled to 1 "+getRegister(parts[1])+" "+getRegister(parts[2]));
                     break;
                 case "SET":
                     if (parts.length != 3){
@@ -141,6 +144,7 @@ public class Assembler {
                     output.add(2);
                     output.add(getRegister(parts[1]));
                     output.add(resolveValue(parts[2], markers, consts));
+                    System.out.println("Assembled to 2 "+getRegister(parts[1])+" "+resolveValue(parts[2], markers, consts));
                     break;
                 case "PULSE":
                     if (parts.length != 2){
@@ -149,6 +153,7 @@ public class Assembler {
                     output.add(3);
                     output.add(getPin(parts[1]));
                     output.add(0);
+                    System.out.println("Assembled to 3 "+getPin(parts[1])+" 0");
             }
         }
 
@@ -156,6 +161,8 @@ public class Assembler {
         for (int i = 0; i < assembled.length; i++) {
             assembled[i] = output.get(i);
         }
+
+        System.out.println("Assembled program ["+assembled.length+" bytes]");
 
         return assembled;
     }
@@ -203,7 +210,7 @@ public class Assembler {
         }
 
         if (consts.containsKey(token)){
-            return labels.get(token) - 3;
+            return consts.get(token);
         }
 
         if (aluOps.containsKey(token)){

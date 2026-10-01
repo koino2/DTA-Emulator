@@ -109,6 +109,12 @@ public class Processor {
         else if (instruction == 3){
             pulse(IR2.getValue());
         }
+        else if (instruction == 0){
+            //
+        }
+        else {
+            System.out.println("INVALID INSTRUCTION! "+instruction);
+        }
     }
 
     public void copy(int regA, int regB){
