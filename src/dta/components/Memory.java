@@ -50,7 +50,7 @@ public class Memory {
                 R_OUT1.hardwareSetValue(values[base+1]);
             }
             else {
-                if (ROM.length > base) {
+                if (ROM.length > base+1) {
                     R_OUT1.hardwareSetValue(ROM[base+1]);
                 } else R_OUT1.hardwareSetValue(0);
             }
@@ -61,7 +61,7 @@ public class Memory {
                 R_OUT2.hardwareSetValue(values[base+2]);
             }
             else {
-                if (ROM.length > base) {
+                if (ROM.length > base+2) {
                     R_OUT2.hardwareSetValue(ROM[base+2]);
                 } else R_OUT2.hardwareSetValue(0);
             }

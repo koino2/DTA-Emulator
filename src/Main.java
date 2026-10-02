@@ -9,16 +9,16 @@ import java.nio.file.Path;
 public class Main {
     public static void main(String[] args) {
         int[] ROM = null; try {
-            ROM = Assembler.assemble(Files.readString(Path.of("../DTA/programs/3d_cube/cube.asm")));
+            ROM = Assembler.assemble(Files.readString(Path.of("../DTA/programs/3d_cube/multiLineDraw.asm")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        Processor processor = new Processor(ROM, 2500);
+        Processor processor = new Processor(ROM, 3000);
 
         processor.dsc.devices.add(new ColorDisplayAdapter());
 
-        processor.setClockSpeed(50);
+        processor.setClockSpeed(10000);
         processor.startClock();
     }
 }

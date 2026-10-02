@@ -21,7 +21,7 @@ public class ProgramCounter {
     };
 
     public void update(){
-
+        System.out.println("PC: "+PC.getValue());
     }
 
 }

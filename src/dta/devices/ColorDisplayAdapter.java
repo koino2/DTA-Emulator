@@ -95,6 +95,6 @@ public class ColorDisplayAdapter extends Device{
 
     @Override
     public void update() {
-
+        panel.repaint();
     }
 }

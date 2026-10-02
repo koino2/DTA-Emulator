@@ -8,6 +8,9 @@ public class Assembler {
     public static Map<String, Integer> pins = new HashMap<>();
     public static Map<String, Integer> aluOps = new HashMap<>();
 
+    public static boolean dynamicConstants = true;
+    public static int dynamicConstantsAddressStart = 3005;
+
     static {
         registers.put("R_ADDR", 0);
         registers.put("R_OUT", 1);
@@ -65,6 +68,8 @@ public class Assembler {
 
         String[] lines = assembly.split("\\R");
 
+        int dynamicConstantsAddress = dynamicConstantsAddressStart;
+
         int address = 0;
         for (String l : lines){
 
@@ -88,20 +93,30 @@ public class Assembler {
         }
 
         for (String l : lines){
-            System.out.println("Assembling: "+l);
             String line = cleanLine(l);
             if (line.isEmpty()) continue;
             String[] parts = line.split("\\s+");
 
             if (parts[0].equalsIgnoreCase("const")){
 
-                if (parts.length != 3){System.out.println("Invalid constant: "+line);}
+                if (parts.length != 3){
+                    System.out.println("Invalid constant: "+line);
+                }
 
                 String name = parts[1];
 
                 if (consts.containsKey(name)){System.out.println("Duplicate constant: "+line);}
 
-                int value = resolveValue(parts[2], markers, consts);
+                int value;
+                if (!dynamicConstants || parts[2].endsWith("!")) {
+                    if (parts[2].endsWith("!")){
+                        parts[2] = parts[2].substring(0, parts[2].length()-1);
+                    }
+                    value = resolveValue(parts[2], markers, consts);
+                } else {
+                    value = dynamicConstantsAddress;
+                    dynamicConstantsAddress += 1;
+                }
 
                 consts.put(name.toUpperCase(), value);
             }
@@ -111,6 +126,7 @@ public class Assembler {
         List<Integer> output = new ArrayList<>();
 
         for (String l : lines){
+            System.out.println("Assembling: "+l);
             String line = cleanLine(l);
             if (line.isEmpty()) continue;
             String[] parts = line.split("\\s+");
