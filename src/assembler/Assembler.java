@@ -116,6 +116,8 @@ public class Assembler {
                 } else {
                     value = dynamicConstantsAddress;
                     dynamicConstantsAddress += 1;
+
+                    System.out.println(name+" = "+value);
                 }
 
                 consts.put(name.toUpperCase(), value);
@@ -170,6 +172,15 @@ public class Assembler {
                     output.add(getPin(parts[1]));
                     output.add(0);
                     System.out.println("Assembled to 3 "+getPin(parts[1])+" 0");
+                    break;
+                case "DEBUG":
+                    if (parts.length != 3){
+                        System.out.println("Invalid DEBUG statement: "+line);
+                    }
+                    output.add(67);
+                    output.add(resolveValue(parts[1], markers, consts));
+                    output.add(resolveValue(parts[2], markers, consts));
+                    System.out.println("Assembled to 67 "+resolveValue(parts[1], markers, consts)+" "+resolveValue(parts[2], markers, consts));
             }
         }
 

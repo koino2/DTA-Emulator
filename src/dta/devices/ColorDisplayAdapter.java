@@ -7,13 +7,14 @@ import java.awt.*;
 
 public class ColorDisplayAdapter extends Device{
 
+    public Color[][] buffer = new Color[64][64];
     public Color[][] screen = new Color[64][64];
     public JPanel panel;
 
     {
-        for (int y = 0; y < screen.length; y++) {
-            for (int x = 0; x < screen[y].length; x++) {
-                screen[y][x] = new Color(0, 0, 0);
+        for (int y = 0; y < buffer.length; y++) {
+            for (int x = 0; x < buffer[y].length; x++) {
+                buffer[y][x] = new Color(0, 0, 0);
             }
         }
     }
@@ -67,7 +68,18 @@ public class ColorDisplayAdapter extends Device{
                     int G = DSC_D4.getValue();
                     int B = DSC_D5.getValue();
 
-                    screen[x][y] = new Color(R, G, B);
+                    R = Math.max(0, Math.min(255, R));
+                    G = Math.max(0, Math.min(255, G));
+                    B = Math.max(0, Math.min(255, B));
+
+                    x += 32;
+                    y += 32;
+
+                    if (x > -1 && y > -1 && x < 64 && y < 64) {
+
+                        buffer[x][y] = new Color(R, G, B);
+
+                    }
 
                     clearRegisters();
                 }
@@ -77,9 +89,9 @@ public class ColorDisplayAdapter extends Device{
         DSC_P1 = new Pin() {
             @Override
             public void onFire() {
-                for (int y = 0; y < screen.length; y++) {
-                    for (int x = 0; x < screen[y].length; x++) {
-                        screen[y][x] = new Color(0, 0, 0);
+                for (int y = 0; y < buffer.length; y++) {
+                    for (int x = 0; x < buffer[y].length; x++) {
+                        buffer[y][x] = new Color(0, 0, 0);
                     }
                 }
             }
@@ -88,6 +100,11 @@ public class ColorDisplayAdapter extends Device{
         DSC_P2 = new Pin() {
             @Override
             public void onFire() {
+                for (int y = 0; y < buffer.length; y++) {
+                    for (int x = 0; x < buffer[y].length; x++) {
+                        screen[y][x] = buffer[y][x];
+                    }
+                }
                 panel.repaint();
             }
         };
@@ -95,6 +112,6 @@ public class ColorDisplayAdapter extends Device{
 
     @Override
     public void update() {
-        panel.repaint();
+        //panel.repaint();
     }
 }

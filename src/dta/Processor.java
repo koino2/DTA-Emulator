@@ -16,6 +16,8 @@ public class Processor {
     public Processor(int[] ROM, int romSize){
         memory = new Memory(ROM, romSize);
 
+        System.out.println("Initialized processor with ROM size "+romSize+" bytes and max memory size "+memory.values.length);
+
         addRegisters();
         addPins();
     }
@@ -96,23 +98,31 @@ public class Processor {
 
     public void execute(){
 
-        System.out.println("EXECUTING: " + IR1.getValue() + " " + IR2.getValue() + " " + IR3.getValue());
+        //System.out.println("EXECUTING: " + IR1.getValue() + " " + IR2.getValue() + " " + IR3.getValue());
 
-        int instruction = IR1.getValue() & 0b11;
+        int instruction = IR1.getValue() ;//& 0b11;
 
         if (instruction == 1){
             copy(IR2.getValue(), IR3.getValue());
+            /*System.out.println("Executed COPY "+
+                    ValueConverter.getRegister(IR2.getValue()) + " ["+registers.get(IR2.getValue()).hardwareGetValue()+"] "+
+                    ValueConverter.getRegister(IR3.getValue())
+            );*/
         }
         else if (instruction == 2){
             set(IR2.getValue(), IR3.getValue());
+            /*System.out.println("Executed SET "+
+                    ValueConverter.getRegister(IR2.getValue()) + " " + IR3.getValue()
+            );*/
         }
         else if (instruction == 3){
             pulse(IR2.getValue());
+            //System.out.println("Executed PULSE " + ValueConverter.getPin(IR2.getValue()));
         }
-        else if (instruction == 0){
-            //
-        }
-        else {
+        /*else if (instruction == 67){
+            System.out.println("\u001B[32mDEBUG: "+ IR2.getValue()+" "+IR3.getValue() +"\u001B[0m");
+        }*/
+        else if (instruction != 0){
             System.out.println("INVALID INSTRUCTION! "+instruction);
         }
     }
@@ -152,5 +162,8 @@ public class Processor {
         }
     };
     public void setClockSpeed(int speed){clock.setClockSpeed(speed);}
-    public void startClock(){clock.startClock();}
+    public void startClock(){
+        System.out.println("Starting execution");
+        clock.startClock();
+    }
 }
