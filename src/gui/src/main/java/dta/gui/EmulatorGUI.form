@@ -188,6 +188,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reset"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -246,6 +249,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Write Program"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="programWriteActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -342,6 +348,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="ALU_A">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
@@ -349,6 +358,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="ALU_B">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
@@ -361,8 +373,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="ALU_OP">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSpinner" name="ALU_OUT">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
@@ -456,6 +474,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="PC_VAL">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel16">
               <Properties>
@@ -463,6 +484,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="PC_TARGET">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel17">
               <Properties>
@@ -470,6 +494,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="PC_JMP">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel18">
               <Properties>
@@ -477,6 +504,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="PC">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
@@ -487,6 +517,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="JUMP"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jumpActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -548,6 +581,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="clockFreq">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="settingsUpdate"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
@@ -558,16 +594,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Start"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clockStartActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="clockBack">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clockBackActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="clockFront">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&gt;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clockFrontActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="clockText">
               <Properties>
@@ -797,6 +842,9 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JSpinner" name="R_ADDR">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel21">
               <Properties>
@@ -809,8 +857,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="R_OUT">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSpinner" name="R_OUT1">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel23">
               <Properties>
@@ -818,6 +872,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="R_OUT2">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel24">
               <Properties>
@@ -830,8 +887,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="W_ADDR">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSpinner" name="W_VAL">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel26">
               <Properties>
@@ -842,8 +905,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="WRITE"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="WRITEActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSpinner" name="ROMSize">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="settingsUpdate"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel27">
               <Properties>
@@ -851,6 +920,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="MSize">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="settingsUpdate"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel28">
               <Properties>
@@ -899,7 +971,7 @@
                                       <Component id="DSC_D1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="83" max="32767" attributes="0"/>
                                       <Component id="DSC_P1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -929,6 +1001,10 @@
                               <Component id="DSC_DEVICE" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="DSC_STATUS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="DSC_P0" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -947,6 +1023,10 @@
                           <Component id="DSC_DEVICE" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="DSC_P0" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Component id="DSC_STATUS" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -1009,6 +1089,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="DSC_DEVICE">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel33">
               <Properties>
@@ -1021,6 +1104,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="DSC_D4">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel35">
               <Properties>
@@ -1028,6 +1114,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="DSC_D6">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel36">
               <Properties>
@@ -1035,8 +1124,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="DSC_D1">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSpinner" name="DSC_D3">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel37">
               <Properties>
@@ -1049,8 +1144,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="DSC_D7">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSpinner" name="DSC_D5">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel39">
               <Properties>
@@ -1058,6 +1159,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="DSC_D0">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel40">
               <Properties>
@@ -1070,30 +1174,58 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="DSC_D2">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="DSC_P0">
               <Properties>
                 <Property name="text" type="java.lang.String" value="DSC_P0"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DSC_P0ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="DSC_P1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="DSC_P1"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DSC_P1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="DSC_P2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="DSC_P2"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DSC_P2ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="DSC_P3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="DSC_P3"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DSC_P3ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="DSC_P4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="DSC_P4"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DSC_P4ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JSpinner" name="DSC_STATUS">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel42">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="DSC_STATUS"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -1168,6 +1300,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="RAM_R_OUT">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel30">
               <Properties>
@@ -1175,6 +1310,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="RAM_W_VAL">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel29">
               <Properties>
@@ -1182,6 +1320,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="RAM_W_ADDR">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel32">
               <Properties>
@@ -1194,11 +1335,17 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="RAM_R_ADDR">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="registerValueChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="RAM_WRITE">
               <Properties>
                 <Property name="text" type="java.lang.String" value="RAM_WRITE"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RAM_WRITEActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1243,27 +1390,15 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="RAM_W_ADDR1" min="-2" pref="153" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="0" pref="445" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-                          <Component id="RAM_W_ADDR1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
-              <SubComponents>
-                <Component class="javax.swing.JSpinner" name="RAM_W_ADDR1">
-                </Component>
-              </SubComponents>
             </Container>
           </SubComponents>
         </Container>
@@ -1421,6 +1556,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="X"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExitActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
