@@ -12,8 +12,13 @@
 package gui.src.main.java.dta.gui;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import dta.Processor;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  *
@@ -24,10 +29,54 @@ public class EmulatorGUI extends javax.swing.JFrame {
     /**
      * Creates new form EmulatorGUI
      */
+
+    public Processor processor;
+
+
     public EmulatorGUI() {
         FlatLightLaf.setup();
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
+    }
+
+    public void refreshUIFromProcessor(){
+        R_ADDR.setValue(processor.registers.get(0).hardwareGetValue());
+        R_OUT.setValue(processor.registers.get(1).hardwareGetValue());
+        R_OUT1.setValue(processor.registers.get(2).hardwareGetValue());
+        R_OUT2.setValue(processor.registers.get(3).hardwareGetValue());
+        W_ADDR.setValue(processor.registers.get(4).hardwareGetValue());
+        W_VAL.setValue(processor.registers.get(5).hardwareGetValue());
+
+        ALU_A.setValue(processor.registers.get(6).hardwareGetValue());
+        ALU_B.setValue(processor.registers.get(7).hardwareGetValue());
+        ALU_OP.setValue(processor.registers.get(8).hardwareGetValue());
+        ALU_OUT.setValue(processor.registers.get(9).hardwareGetValue());
+
+        RAM_R_ADDR.setValue(processor.registers.get(10).hardwareGetValue());
+        RAM_R_OUT.setValue(processor.registers.get(11).hardwareGetValue());
+        RAM_W_ADDR.setValue(processor.registers.get(12).hardwareGetValue());
+        RAM_W_VAL.setValue(processor.registers.get(13).hardwareGetValue());
+
+        PC.setValue(processor.registers.get(14).hardwareGetValue());
+        PC_VAL.setValue(processor.registers.get(15).hardwareGetValue());
+        PC_TARGET.setValue(processor.registers.get(16).hardwareGetValue());
+        PC_JMP.setValue(processor.registers.get(17).hardwareGetValue());
+
+        DSC_D0.setValue(processor.registers.get(18).hardwareGetValue());
+        DSC_D1.setValue(processor.registers.get(19).hardwareGetValue());
+        DSC_D2.setValue(processor.registers.get(20).hardwareGetValue());
+        DSC_D3.setValue(processor.registers.get(21).hardwareGetValue());
+        DSC_D4.setValue(processor.registers.get(22).hardwareGetValue());
+        DSC_D5.setValue(processor.registers.get(23).hardwareGetValue());
+        DSC_D6.setValue(processor.registers.get(24).hardwareGetValue());
+        DSC_D7.setValue(processor.registers.get(25).hardwareGetValue());
+        DSC_STATUS.setValue(processor.registers.get(26).hardwareGetValue());
+        DSC_DEVICE.setValue(processor.registers.get(27).hardwareGetValue());
+
+        clockFreq.setValue(processor.clock.clockSpeed);
+        MSize.setValue(processor.memory.values.length);
+        ROMSize.setValue(processor.memory.ROMSize);
     }
 
     /**
@@ -1277,15 +1326,26 @@ public class EmulatorGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void importProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importProgramActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(this);
+        if (result != JFileChooser.APPROVE_OPTION) return;
+        File file = fileChooser.getSelectedFile();
+        String code = null;
+        try {
+            code = Files.readString(Path.of(file.getPath()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        programText.setText(code);
     }//GEN-LAST:event_importProgramActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        new EmulatorGUI().setVisible(true);
     }//GEN-LAST:event_resetActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
 
     private void jumpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumpActionPerformed
@@ -1348,35 +1408,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmulatorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmulatorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmulatorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmulatorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmulatorGUI().setVisible(true);
-            }
-        });
+        new EmulatorGUI().setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

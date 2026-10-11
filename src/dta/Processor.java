@@ -22,7 +22,7 @@ public class Processor {
         addPins();
     }
 
-    final Map<Integer, Register> registers = new HashMap<>();
+    public final Map<Integer, Register> registers = new HashMap<>();
     void addRegisters(){
         registers.put(0, memory.R_ADDR);
         registers.put(1, memory.R_OUT);
@@ -58,7 +58,7 @@ public class Processor {
         registers.put(27, dsc.DSC_DEVICE);
     }
 
-    final Map<Integer, Pin> pins = new HashMap<>();
+    public final Map<Integer, Pin> pins = new HashMap<>();
     void addPins(){
         pins.put(0, memory.WRITE);
         pins.put(1, ram.RAM_WRITE);
