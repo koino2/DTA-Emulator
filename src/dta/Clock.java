@@ -8,7 +8,7 @@ public abstract class Clock {
 
     float nanosPerTick = (float) (clockTime * 1000000000);
 
-    boolean running = false;
+    public boolean running = false;
 
     long lastTickTime = 0;
 
@@ -18,13 +18,10 @@ public abstract class Clock {
         nanosPerTick = (float) (clockTime * 1000000000);
     }
 
-    public void startClock(){
-        running = true;
-
-        lastTickTime = System.nanoTime();
-
+    public void initClock(){
         Thread thread = new Thread(() -> {
-            while (running){
+            while (true){
+                if (!running) continue;
                 long timeNow = System.nanoTime();
                 long timeSinceLastTick = timeNow-lastTickTime;
                 float numberOfTicks = timeSinceLastTick / nanosPerTick;
@@ -40,6 +37,15 @@ public abstract class Clock {
             }
         });
         thread.start();
+    }
+
+    public void startClock(){
+        lastTickTime = System.nanoTime();
+        running = true;
+    }
+
+    public void stopClock(){
+        running = false;
     }
 
     public abstract void tick();

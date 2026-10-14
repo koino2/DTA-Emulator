@@ -22,6 +22,10 @@ public class Processor {
         addPins();
     }
 
+    public Processor(){
+        new Processor(new int[]{}, 512);
+    }
+
     public final Map<Integer, Register> registers = new HashMap<>();
     void addRegisters(){
         registers.put(0, memory.R_ADDR);
@@ -75,6 +79,8 @@ public class Processor {
     public Register IR3 = new Register();
 
     public void tick(){
+        resetPins();
+
         int temp = memory.R_ADDR.hardwareGetValue();
 
         memory.R_ADDR.setValue(programCounter.PC.hardwareGetValue());
@@ -94,6 +100,24 @@ public class Processor {
         update();
 
         programCounter.PC.hardwareSetValue(programCounter.PC.hardwareGetValue()+3);
+    }
+
+    public Map<Integer, Boolean> pinFired = new HashMap<>();
+    {
+        pinFired.put(0, false);
+        pinFired.put(1, false);
+        pinFired.put(2, false);
+        pinFired.put(3, false);
+        pinFired.put(4, false);
+        pinFired.put(5, false);
+        pinFired.put(6, false);
+        pinFired.put(7, false);
+    }
+
+    public void resetPins(){
+        for (int i = 0; i < pins.size(); i++) {
+            pins.get(i).fired = false;
+        }
     }
 
     public void execute(){
@@ -117,6 +141,8 @@ public class Processor {
         }
         else if (instruction == 3){
             pulse(IR2.getValue());
+            pinFired.remove(IR2.getValue());
+            pinFired.put(IR2.getValue(), true);
             //System.out.println("Executed PULSE " + ValueConverter.getPin(IR2.getValue()));
         }
         /*else if (instruction == 67){
@@ -143,7 +169,7 @@ public class Processor {
     public void pulse(int pin){
         if (pins.size() > pin){
             Pin A = pins.get(pin);
-            A.onFire();
+            A.fire();
         }
     }
 
@@ -155,12 +181,18 @@ public class Processor {
         dsc.update();
     }
 
-    public Clock clock = new Clock() {
-        @Override
-        public void tick() {
-            Processor.this.tick();
-        }
-    };
+    public Clock clock;
+
+    {
+        clock = new Clock() {
+            @Override
+            public void tick() {
+                Processor.this.tick();
+            }
+        };
+        clock.initClock();
+    }
+
     public void setClockSpeed(int speed){clock.setClockSpeed(speed);}
     public void startClock(){
         System.out.println("Starting execution");

@@ -8,13 +8,13 @@ import java.nio.file.Path;
 
 public class Main {
     public static void main(String[] args) {
-        int[] ROM = null; try {
+        int[] ROM = new int[]{0, 0, 0};/*null; try {
             ROM = Assembler.assemble(
                     Files.readString(Path.of("../DTA/programs/3d_cube/comb.asm"))
             );
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         Processor processor = new Processor(ROM, 3000);
 
