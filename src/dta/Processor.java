@@ -128,22 +128,22 @@ public class Processor {
 
         if (instruction == 1){
             copy(IR2.getValue(), IR3.getValue());
-            /*System.out.println("Executed COPY "+
+            System.out.println("Executed COPY "+
                     ValueConverter.getRegister(IR2.getValue()) + " ["+registers.get(IR2.getValue()).hardwareGetValue()+"] "+
                     ValueConverter.getRegister(IR3.getValue())
-            );*/
+            );
         }
         else if (instruction == 2){
             set(IR2.getValue(), IR3.getValue());
-            /*System.out.println("Executed SET "+
+            System.out.println("Executed SET "+
                     ValueConverter.getRegister(IR2.getValue()) + " " + IR3.getValue()
-            );*/
+            );
         }
         else if (instruction == 3){
             pulse(IR2.getValue());
             pinFired.remove(IR2.getValue());
             pinFired.put(IR2.getValue(), true);
-            //System.out.println("Executed PULSE " + ValueConverter.getPin(IR2.getValue()));
+            System.out.println("Executed PULSE " + ValueConverter.getPin(IR2.getValue()));
         }
         /*else if (instruction == 67){
             System.out.println("\u001B[32mDEBUG: "+ IR2.getValue()+" "+IR3.getValue() +"\u001B[0m");
