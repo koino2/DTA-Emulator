@@ -16,6 +16,8 @@ import dta.Pin;
 import dta.Processor;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -44,7 +46,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
         processor.clock = new Clock() {
             @Override
             public void tick() {
-                System.out.println("tiki tiki tiki");
                 processor.tick();
                 refreshUIFromProcessor();
                 System.out.println("tick");
@@ -65,7 +66,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
     }
 
     public void refreshUIFromProcessor(){
-        System.out.println("REFRESGING");
         R_ADDR.setValue(processor.registers.get(0).hardwareGetValue());
         R_OUT.setValue(processor.registers.get(1).hardwareGetValue());
         R_OUT1.setValue(processor.registers.get(2).hardwareGetValue());
@@ -129,6 +129,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
     Color clockStopColor = new Color(255, 47, 47);
 
     public void refreshProcessorFromUI(){
+        System.out.println("befresh");
         for(JSpinner spinner : new JSpinner[]{R_ADDR, R_OUT, R_OUT1, R_OUT2, W_ADDR, W_VAL,
         ALU_A, ALU_B, ALU_OP, ALU_OUT,
         RAM_R_ADDR, RAM_R_OUT, RAM_W_ADDR, RAM_W_VAL,
@@ -137,6 +138,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         clockFreq, MSize, ROMSize}){
             try {
                 spinner.commitEdit();
+                System.out.println("committed stuff");
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -175,7 +177,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
         processor.registers.get(26).hardwareSetValue((int)DSC_STATUS.getValue());
         processor.registers.get(27).hardwareSetValue((int)DSC_DEVICE.getValue());
 
-        System.out.println(clockFreq.getValue());
         processor.clock.setClockSpeed((Integer) clockFreq.getValue());
 
         int[] newRom = new int[(int) MSize.getValue()];
@@ -416,35 +417,19 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
         jLabel3.setText("Arithmetic & Logic Unit (ALU)");
 
-        ALU_A.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        ALU_A.addChangeListener(e -> registerValueChanged());
 
         jLabel12.setText("ALU_A");
 
-        ALU_B.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        ALU_B.addChangeListener(e -> registerValueChanged());
 
         jLabel13.setText("ALU_B");
 
         jLabel14.setText("ALU_OP");
 
-        ALU_OP.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        ALU_OP.addChangeListener(e -> registerValueChanged());
 
-        ALU_OUT.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        ALU_OUT.addChangeListener(e -> registerValueChanged());
 
         jLabel15.setText("ALU_OUT");
 
@@ -514,35 +499,19 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
         jLabel4.setText("Program Counter (PC)");
 
-        PC_VAL.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        PC_VAL.addChangeListener(e -> registerValueChanged());
 
         jLabel16.setText("PC_VAL");
 
-        PC_TARGET.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        PC_TARGET.addChangeListener(e -> registerValueChanged());
 
         jLabel17.setText("PC_TARGET");
 
-        PC_JMP.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        PC_JMP.addChangeListener(e -> registerValueChanged());
 
         jLabel18.setText("PC_JMP");
 
-        PC.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        PC.addChangeListener(e -> registerValueChanged());
 
         jLabel19.setText("PC");
 
@@ -614,11 +583,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
         jLabel5.setText("Clock");
 
-        clockFreq.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                settingsUpdate(evt);
-            }
-        });
+        clockFreq.addChangeListener(e -> settingsUpdate());
 
         jLabel20.setText("Frequency (Hz)");
 
@@ -756,51 +721,27 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(memoryPanel);
 
-        R_ADDR.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        R_ADDR.addChangeListener(e -> registerValueChanged());
 
         jLabel21.setText("R_ADDR");
 
         jLabel22.setText("R_OUT");
 
-        R_OUT.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        R_OUT.addChangeListener(e -> registerValueChanged());
 
-        R_OUT1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        R_OUT1.addChangeListener(e -> registerValueChanged());
 
         jLabel23.setText("R_OUT1");
 
-        R_OUT2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        R_OUT2.addChangeListener(e -> registerValueChanged());
 
         jLabel24.setText("R_OUT2");
 
         jLabel25.setText("W_ADDR");
 
-        W_ADDR.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        W_ADDR.addChangeListener(e -> registerValueChanged());
 
-        W_VAL.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        W_VAL.addChangeListener(e -> registerValueChanged());
 
         jLabel26.setText("W_VAL");
 
@@ -811,19 +752,11 @@ public class EmulatorGUI extends javax.swing.JFrame {
             }
         });
 
-        ROMSize.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                settingsUpdate(evt);
-            }
-        });
+        ROMSize.addChangeListener(e -> settingsUpdate());
 
         jLabel27.setText("ROM Size");
 
-        MSize.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                settingsUpdate(evt);
-            }
-        });
+        MSize.addChangeListener(e -> settingsUpdate());
 
         jLabel28.setText("M Size");
 
@@ -917,77 +850,41 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
         jLabel7.setText("DSC");
 
-        DSC_DEVICE.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        DSC_DEVICE.addChangeListener(e -> registerValueChanged());
 
         jLabel33.setText("DSC_DEVICE");
 
         jLabel34.setText("DSC_D4");
 
-        DSC_D4.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        DSC_D4.addChangeListener(e -> registerValueChanged());
 
         jLabel35.setText("DSC_D6");
 
-        DSC_D6.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        DSC_D6.addChangeListener(e -> registerValueChanged());
 
         jLabel36.setText("DSC_D3");
 
-        DSC_D1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        DSC_D1.addChangeListener(e -> registerValueChanged());
 
-        DSC_D3.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        DSC_D3.addChangeListener(e -> registerValueChanged());
 
         jLabel37.setText("DSC_D1");
 
         jLabel38.setText("DSC_D7");
 
-        DSC_D7.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        DSC_D7.addChangeListener(e -> registerValueChanged());
 
-        DSC_D5.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        DSC_D5.addChangeListener(e -> registerValueChanged());
 
         jLabel39.setText("DSC_D5");
 
-        DSC_D0.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        DSC_D0.addChangeListener(e -> registerValueChanged());
 
         jLabel40.setText("DSC_D0");
 
         jLabel41.setText("DSC_D2");
 
-        DSC_D2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        DSC_D2.addChangeListener(e -> registerValueChanged());
 
         DSC_P0.setText("DSC_P0");
         DSC_P0.addActionListener(new java.awt.event.ActionListener() {
@@ -1024,11 +921,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
             }
         });
 
-        DSC_STATUS.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        DSC_STATUS.addChangeListener(e -> registerValueChanged());
 
         jLabel42.setText("DSC_STATUS");
 
@@ -1153,37 +1046,21 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
         jLabel8.setText("RAM Interface");
 
-        RAM_R_OUT.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        RAM_R_OUT.addChangeListener(e -> registerValueChanged());
 
         jLabel30.setText("RAM_R_OUT");
 
-        RAM_W_VAL.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        RAM_W_VAL.addChangeListener(e -> registerValueChanged());
 
         jLabel29.setText("RAM_R_ADDR");
 
-        RAM_W_ADDR.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        RAM_W_ADDR.addChangeListener(e -> registerValueChanged());
 
         jLabel32.setText("RAM_W_VAL");
 
         jLabel31.setText("RAM_W_ADDR");
 
-        RAM_R_ADDR.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                registerValueChanged(evt);
-            }
-        });
+        RAM_R_ADDR.addChangeListener(e -> registerValueChanged());
 
         RAM_WRITE.setText("RAM_WRITE");
         RAM_WRITE.addActionListener(new java.awt.event.ActionListener() {
@@ -1538,11 +1415,12 @@ public class EmulatorGUI extends javax.swing.JFrame {
         processor.pins.get(1).fire();
     }//GEN-LAST:event_RAM_WRITEActionPerformed
 
-    private void registerValueChanged(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_registerValueChanged
+    private void registerValueChanged() {//GEN-FIRST:event_registerValueChanged
+        System.out.println("REGISTER VALUE CHANGED");
         refreshProcessorFromUI();
     }//GEN-LAST:event_registerValueChanged
 
-    private void settingsUpdate(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_settingsUpdate
+    private void settingsUpdate() {//GEN-FIRST:event_settingsUpdate
         refreshProcessorFromUI();
     }//GEN-LAST:event_settingsUpdate
 

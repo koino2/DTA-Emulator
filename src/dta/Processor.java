@@ -122,7 +122,7 @@ public class Processor {
 
     public void execute(){
 
-        //System.out.println("EXECUTING: " + IR1.getValue() + " " + IR2.getValue() + " " + IR3.getValue());
+        System.out.println("EXECUTING: " + IR1.getValue() + " " + IR2.getValue() + " " + IR3.getValue());
 
         int instruction = IR1.getValue() ;//& 0b11;
 
