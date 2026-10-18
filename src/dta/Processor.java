@@ -23,7 +23,7 @@ public class Processor {
     }
 
     public Processor(){
-        new Processor(new int[]{}, 512);
+        this(new int[]{}, 512);
     }
 
     public final Map<Integer, Register> registers = new HashMap<>();

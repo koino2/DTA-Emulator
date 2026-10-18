@@ -11,6 +11,7 @@ package gui.src.main.java.dta.gui;
 
 import assembler.Assembler;
 import com.formdev.flatlaf.FlatLightLaf;
+import dta.Clock;
 import dta.Pin;
 import dta.Processor;
 
@@ -18,8 +19,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.ParseException;
 
 /**
  *
@@ -37,15 +41,31 @@ public class EmulatorGUI extends javax.swing.JFrame {
     public EmulatorGUI(Processor processor) {
         this.processor = processor;
 
+        processor.clock = new Clock() {
+            @Override
+            public void tick() {
+                System.out.println("tiki tiki tiki");
+                processor.tick();
+                refreshUIFromProcessor();
+                System.out.println("tick");
+            }
+        };
+        processor.clock.initClock();
+
         FlatLightLaf.setup();
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
         refreshUIFromProcessor();
+
+        setVisible(true);
+
+        initOutput();
     }
 
     public void refreshUIFromProcessor(){
+        System.out.println("REFRESGING");
         R_ADDR.setValue(processor.registers.get(0).hardwareGetValue());
         R_OUT.setValue(processor.registers.get(1).hardwareGetValue());
         R_OUT1.setValue(processor.registers.get(2).hardwareGetValue());
@@ -83,17 +103,45 @@ public class EmulatorGUI extends javax.swing.JFrame {
         MSize.setValue(processor.memory.values.length);
         ROMSize.setValue(processor.memory.ROMSize);
 
-        WRITE.setForeground(getPinColor(processor.pins.get(0)));
-        RAM_WRITE.setForeground(getPinColor(processor.pins.get(1)));
-        jump.setForeground(getPinColor(processor.pins.get(1)));
-        DSC_P0.setForeground(getPinColor(processor.pins.get(3)));
-        DSC_P1.setForeground(getPinColor(processor.pins.get(4)));
-        DSC_P2.setForeground(getPinColor(processor.pins.get(5)));
-        DSC_P3.setForeground(getPinColor(processor.pins.get(6)));
-        DSC_P4.setForeground(getPinColor(processor.pins.get(7)));
+        WRITE.setBackground(getPinColor(processor.pins.get(0)));
+        RAM_WRITE.setBackground(getPinColor(processor.pins.get(1)));
+        jump.setBackground(getPinColor(processor.pins.get(1)));
+        DSC_P0.setBackground(getPinColor(processor.pins.get(3)));
+        DSC_P1.setBackground(getPinColor(processor.pins.get(4)));
+        DSC_P2.setBackground(getPinColor(processor.pins.get(5)));
+        DSC_P3.setBackground(getPinColor(processor.pins.get(6)));
+        DSC_P4.setBackground(getPinColor(processor.pins.get(7)));
+
+        processor.clock.setClockSpeed(
+                ((Number) clockFreq.getValue()).intValue()
+        );
+
+        if(processor.clock.running){
+            clockStart.setText("Stop Clock");
+            clockStart.setBackground(clockStopColor);
+        } else {
+            clockStart.setText("Start Clock");
+            clockStart.setBackground(clockStartColor);
+        }
     }
 
+    Color clockStartColor = new Color(109, 255, 69);
+    Color clockStopColor = new Color(255, 47, 47);
+
     public void refreshProcessorFromUI(){
+        for(JSpinner spinner : new JSpinner[]{R_ADDR, R_OUT, R_OUT1, R_OUT2, W_ADDR, W_VAL,
+        ALU_A, ALU_B, ALU_OP, ALU_OUT,
+        RAM_R_ADDR, RAM_R_OUT, RAM_W_ADDR, RAM_W_VAL,
+        PC_VAL, PC_TARGET, PC_VAL, PC,
+        DSC_D0, DSC_D1, DSC_D2, DSC_D3, DSC_D4, DSC_D5, DSC_D6, DSC_D7, DSC_DEVICE,
+        clockFreq, MSize, ROMSize}){
+            try {
+                spinner.commitEdit();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         processor.registers.get(0).hardwareSetValue((int)R_ADDR.getValue());
         processor.registers.get(1).hardwareSetValue((int)R_OUT.getValue());
         processor.registers.get(2).hardwareSetValue((int)R_OUT1.getValue());
@@ -127,6 +175,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         processor.registers.get(26).hardwareSetValue((int)DSC_STATUS.getValue());
         processor.registers.get(27).hardwareSetValue((int)DSC_DEVICE.getValue());
 
+        System.out.println(clockFreq.getValue());
         processor.clock.setClockSpeed((Integer) clockFreq.getValue());
 
         int[] newRom = new int[(int) MSize.getValue()];
@@ -138,6 +187,21 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
     public Color defaultPinColor = new JButton().getBackground();
     public Color activatedPinColor = new Color(255, 245, 19);
+
+    public void initOutput(){
+        OutputStream out = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                SwingUtilities.invokeLater(() -> {
+                    outputText.append(String.valueOf((char)
+                            b));
+                });
+            }
+        };
+        PrintStream stream = new PrintStream(out, true);
+        System.setOut(stream);
+        System.setErr(stream);
+    }
 
     public Color getPinColor(Pin pin){
         if (pin.fired){
@@ -1420,7 +1484,18 @@ public class EmulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jumpActionPerformed
 
     private void clockStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clockStartActionPerformed
-        processor.clock.running = !processor.clock.running;
+        try {
+            clockFreq.commitEdit();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        int hz = ((Number) clockFreq.getValue()).intValue();
+        processor.clock.setClockSpeed(hz);
+        if (processor.clock.running){
+            processor.clock.stopClock();
+        } else {
+            processor.clock.startClock();
+        }
     }//GEN-LAST:event_clockStartActionPerformed
 
     private void clockBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clockBackActionPerformed
@@ -1485,7 +1560,8 @@ public class EmulatorGUI extends javax.swing.JFrame {
                 2, 23, 255,
                 3, 3, 0
         }, 512)).setVisible(true);*/
-        new EmulatorGUI(new Processor()).setVisible(true);
+        Processor proc = new Processor();
+        EmulatorGUI egui = new EmulatorGUI(proc);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

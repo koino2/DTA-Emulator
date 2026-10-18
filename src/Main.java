@@ -8,19 +8,20 @@ import java.nio.file.Path;
 
 public class Main {
     public static void main(String[] args) {
-        int[] ROM = new int[]{0, 0, 0};/*null; try {
+        int[] ROM = null; try {
             ROM = Assembler.assemble(
-                    Files.readString(Path.of("../DTA/programs/3d_cube/comb.asm"))
+                    Files.readString(Path.of("../DTA-CPU/programs/3d_cube/comb.asm"))
             );
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
         Processor processor = new Processor(ROM, 3000);
 
         processor.dsc.devices.add(new ColorDisplayAdapter());
 
         processor.setClockSpeed(500000);
+        processor.clock.initClock();
         processor.startClock();
     }
 }
