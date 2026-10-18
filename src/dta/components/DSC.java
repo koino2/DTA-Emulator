@@ -107,7 +107,10 @@ public class DSC {
         return new Pin() {
             @Override
             public void onFire() {
-                getPin(index).fire();
+                Pin pin = getPin(index);
+                if (pin != null){
+                    pin.fire();
+                }
             }
         };
     }
