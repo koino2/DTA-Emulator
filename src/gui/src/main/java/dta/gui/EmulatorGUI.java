@@ -48,7 +48,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
             public void tick() {
                 processor.tick();
                 refreshUIFromProcessor();
-                System.out.println("tick");
             }
         };
         processor.clock.initClock();
@@ -129,7 +128,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
     Color clockStopColor = new Color(255, 47, 47);
 
     public void refreshProcessorFromUI(){
-        System.out.println("befresh");
         for(JSpinner spinner : new JSpinner[]{R_ADDR, R_OUT, R_OUT1, R_OUT2, W_ADDR, W_VAL,
         ALU_A, ALU_B, ALU_OP, ALU_OUT,
         RAM_R_ADDR, RAM_R_OUT, RAM_W_ADDR, RAM_W_VAL,
@@ -138,7 +136,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
         clockFreq, MSize, ROMSize}){
             try {
                 spinner.commitEdit();
-                System.out.println("committed stuff");
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -1416,7 +1413,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_RAM_WRITEActionPerformed
 
     private void registerValueChanged() {//GEN-FIRST:event_registerValueChanged
-        System.out.println("REGISTER VALUE CHANGED");
         refreshProcessorFromUI();
     }//GEN-LAST:event_registerValueChanged
 

@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         int[] ROM = null; try {
             ROM = Assembler.assemble(
                     Files.readString(Path.of("../DTA-CPU/programs/3d_cube/comb.asm"))
@@ -20,7 +20,9 @@ public class Main {
 
         processor.dsc.devices.add(new ColorDisplayAdapter());
 
-        processor.setClockSpeed(500000);
+        Thread.sleep(1000);
+
+        processor.setClockSpeed(100);
         processor.clock.initClock();
         processor.startClock();
     }

@@ -4,7 +4,7 @@ public abstract class Clock {
 
     public int clockSpeed = 1_000;
 
-    public double clockTime = (double) 1 /clockSpeed; // in seconds
+    public double clockTime = (double) 1 / clockSpeed; // in seconds
 
     float nanosPerTick = (float) (clockTime * 1000000000);
 
@@ -12,29 +12,27 @@ public abstract class Clock {
 
     long lastTickTime = 0;
 
-    public void setClockSpeed(int clockSpeed){
+    public void setClockSpeed(int clockSpeed) {
         this.clockSpeed = clockSpeed;
         clockTime = (double) 1 / clockSpeed;
         nanosPerTick = (float) (clockTime * 1000000000);
     }
 
-    public void initClock(){
+    public void initClock() {
         Thread thread = new Thread(() -> {
-            while (true){
+            while (true) {
                 if (!running) continue;
                 long timeNow = System.nanoTime();
-                long timeSinceLastTick = timeNow-lastTickTime;
+                long timeSinceLastTick = timeNow - lastTickTime;
                 float numberOfTicks = timeSinceLastTick / nanosPerTick;
                 int ticks = (int) Math.floor(numberOfTicks);
 
                 //System.out.println("trying to tick");
                 for (int i = 0; i < ticks; i++) {
-                    System.out.println("ticking");
                     tick();
-                    System.out.println("ticked");
                 }
 
-                if (ticks > 0){
+                if (ticks > 0) {
                     lastTickTime += (long) (ticks * nanosPerTick);
                 }
             }
@@ -47,13 +45,13 @@ public abstract class Clock {
 
     boolean initialized;
 
-    public void startClock(){
+    public void startClock() {
         System.out.println(initialized);
         lastTickTime = System.nanoTime();
         running = true;
     }
 
-    public void stopClock(){
+    public void stopClock() {
         running = false;
     }
 
