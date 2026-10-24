@@ -16,8 +16,6 @@ import dta.Pin;
 import dta.Processor;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -39,10 +37,12 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
     public Processor processor;
 
+    boolean refreshingUI = false;
 
     public EmulatorGUI(Processor processor) {
         this.processor = processor;
 
+        processor.clock.stopClock();
         processor.clock = new Clock() {
             @Override
             public void tick() {
@@ -51,6 +51,8 @@ public class EmulatorGUI extends javax.swing.JFrame {
             }
         };
         processor.clock.initClock();
+
+        //System.setProperty("flatlaf.uiScale", "1.25x");
 
         FlatLightLaf.setup();
         initComponents();
@@ -65,6 +67,13 @@ public class EmulatorGUI extends javax.swing.JFrame {
     }
 
     public void refreshUIFromProcessor(){
+        if (!SwingUtilities.isEventDispatchThread()) {
+            SwingUtilities.invokeLater(this::refreshUIFromProcessor);
+            return;
+        }
+
+        refreshingUI = true;
+
         R_ADDR.setValue(processor.registers.get(0).hardwareGetValue());
         R_OUT.setValue(processor.registers.get(1).hardwareGetValue());
         R_OUT1.setValue(processor.registers.get(2).hardwareGetValue());
@@ -122,6 +131,8 @@ public class EmulatorGUI extends javax.swing.JFrame {
             clockStart.setText("Start Clock");
             clockStart.setBackground(clockStartColor);
         }
+
+        refreshingUI = false;
     }
 
     Color clockStartColor = new Color(109, 255, 69);
@@ -1345,6 +1356,8 @@ public class EmulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_importProgramActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
+        processor.clock.stopClock();
+        processor.clock.setClockSpeed(0);
         this.dispose();
         new EmulatorGUI(new Processor()).setVisible(true);
     }//GEN-LAST:event_resetActionPerformed
@@ -1370,6 +1383,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         } else {
             processor.clock.startClock();
         }
+        refreshUIFromProcessor();
     }//GEN-LAST:event_clockStartActionPerformed
 
     private void clockBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clockBackActionPerformed
@@ -1413,11 +1427,11 @@ public class EmulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_RAM_WRITEActionPerformed
 
     private void registerValueChanged() {//GEN-FIRST:event_registerValueChanged
-        refreshProcessorFromUI();
+        if (!refreshingUI) refreshProcessorFromUI();
     }//GEN-LAST:event_registerValueChanged
 
     private void settingsUpdate() {//GEN-FIRST:event_settingsUpdate
-        refreshProcessorFromUI();
+        if (!refreshingUI) refreshProcessorFromUI();
     }//GEN-LAST:event_settingsUpdate
 
     /**

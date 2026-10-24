@@ -30,6 +30,7 @@ public abstract class Clock {
                 //System.out.println("trying to tick");
                 for (int i = 0; i < ticks; i++) {
                     tick();
+                    //System.out.println("tick");
                 }
 
                 if (ticks > 0) {
