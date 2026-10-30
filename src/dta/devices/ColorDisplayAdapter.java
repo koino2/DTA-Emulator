@@ -46,6 +46,10 @@ public class ColorDisplayAdapter extends Device{
         j.setVisible(true);
     }
 
+    public ColorDisplayAdapter(boolean window){
+        if (window){new ColorDisplayAdapter();}
+    }
+
     public void clearRegisters(){
         DSC_D0.setValue(0);
         DSC_D1.setValue(0);
