@@ -14,6 +14,10 @@ import com.formdev.flatlaf.FlatLightLaf;
 import dta.Clock;
 import dta.Pin;
 import dta.Processor;
+import dta.devices.ColorDisplayAdapter;
+import dta.devices.Device;
+import dta.gui.DeviceInterface;
+import dta.gui.GPUInterface;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -165,11 +169,42 @@ public class EmulatorGUI extends javax.swing.JFrame {
             clockStart.setBackground(clockStartColor);
         }
 
+        try {
+            deviceSelector.commitEdit();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (
+                devicePanel == null ||
+                !(devicePanel instanceof DeviceInterface) ||
+                ((DeviceInterface) devicePanel ).device != processor.dsc.devices.get(((Number)(deviceSelector.getValue())).intValue())
+        ){
+            if (processor.dsc.devices.size() > ((Number)(deviceSelector.getValue())).intValue()) {
+                JPanel newDevicePanel = getDeviceInterface(processor.dsc.devices.get(((Number) (deviceSelector.getValue())).intValue()));
+                devicePanel.removeAll();
+                devicePanel.setLayout(new BorderLayout());
+                devicePanel.add(newDevicePanel);
+                devicePanel.revalidate();
+                devicePanel.repaint();
+            }
+        }
+
         refreshingUI = false;
     }
 
     Color clockStartColor = new Color(109, 255, 69);
     Color clockStopColor = new Color(255, 47, 47);
+
+    public JPanel getDeviceInterface(Device device){
+        if (device instanceof ColorDisplayAdapter){
+            return new GPUInterface((ColorDisplayAdapter) device);
+        } else {
+            JPanel emptyPanel = new JPanel();
+            emptyPanel.add(new JLabel("Empty Device Interface"));
+            return emptyPanel;
+        }
+    }
 
     public void refreshProcessorFromUI(){
         for(JSpinner spinner : new JSpinner[]{R_ADDR, R_OUT, R_OUT1, R_OUT2, W_ADDR, W_VAL,
@@ -1629,7 +1664,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_averageActionPerformed
 
     private void deviceSelectorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_deviceSelectorStateChanged
-        // TODO add your handling code here:
+        refreshUIFromProcessor();
     }//GEN-LAST:event_deviceSelectorStateChanged
 
     private void editDevicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editDevicesActionPerformed

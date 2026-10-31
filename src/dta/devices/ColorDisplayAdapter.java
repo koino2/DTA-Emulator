@@ -109,7 +109,7 @@ public class ColorDisplayAdapter extends Device{
                         screen[y][x] = buffer[y][x];
                     }
                 }
-                panel.repaint();
+                if (panel != null) panel.repaint();
             }
         };
     }

@@ -10,6 +10,7 @@ import dta.devices.ColorDisplayAdapter;
 import dta.devices.Device;
 import dta.devices.PowerController;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.util.Objects;
@@ -64,8 +65,9 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         debug = new javax.swing.JTextArea();
+        debug.setEditable(false);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 400));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
