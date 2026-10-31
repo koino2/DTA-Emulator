@@ -19,7 +19,6 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -321,8 +320,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
         clockFreq = new javax.swing.JSpinner();
         jLabel20 = new javax.swing.JLabel();
         clockStart = new javax.swing.JButton();
-        clockBack = new javax.swing.JButton();
-        clockFront = new javax.swing.JButton();
         clockText = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -383,6 +380,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         RAM_R_ADDR = new javax.swing.JSpinner();
         RAM_WRITE = new javax.swing.JButton();
+        jLabel44 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         devicePanel = new javax.swing.JPanel();
@@ -721,20 +719,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
             }
         });
 
-        clockBack.setText("<");
-        clockBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clockBackActionPerformed(evt);
-            }
-        });
-
-        clockFront.setText(">");
-        clockFront.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clockFrontActionPerformed(evt);
-            }
-        });
-
         clockText.setText("debug");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -752,10 +736,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
                         .addComponent(jLabel20))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(clockStart)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(clockBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(clockFront)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -771,10 +751,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clockText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(clockStart)
-                    .addComponent(clockBack)
-                    .addComponent(clockFront))
+                .addComponent(clockStart)
                 .addContainerGap())
         );
 
@@ -1252,6 +1229,9 @@ public class EmulatorGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel44.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel44.setText("DTA Emulator 26.11");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1279,7 +1259,9 @@ public class EmulatorGUI extends javax.swing.JFrame {
                         .addGap(12, 12, 12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(RAM_WRITE)))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(RAM_WRITE, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel44, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -1301,7 +1283,9 @@ public class EmulatorGUI extends javax.swing.JFrame {
                     .addComponent(jLabel32))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RAM_WRITE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel44)
+                .addContainerGap())
         );
 
         jLabel9.setText("Device: ");
@@ -1604,14 +1588,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
         refreshUIFromProcessor();
     }//GEN-LAST:event_clockStartActionPerformed
 
-    private void clockBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clockBackActionPerformed
-        processor.programCounter.PC.setValue(processor.programCounter.PC.hardwareGetValue() - 1); // todo this is stupid, it needs to revert the entire processor state, but idk how to
-    }//GEN-LAST:event_clockBackActionPerformed
-
-    private void clockFrontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clockFrontActionPerformed
-        processor.programCounter.PC.setValue(processor.programCounter.PC.hardwareGetValue() + 1); // todo same here
-    }//GEN-LAST:event_clockFrontActionPerformed
-
     private void programWriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_programWriteActionPerformed
         processor.memory.ROM = Assembler.assemble(programText.getText());
     }//GEN-LAST:event_programWriteActionPerformed
@@ -1737,9 +1713,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
     private javax.swing.JSpinner W_ADDR;
     private javax.swing.JSpinner W_VAL;
     private javax.swing.JCheckBox average;
-    private javax.swing.JButton clockBack;
     private javax.swing.JSpinner clockFreq;
-    private javax.swing.JButton clockFront;
     private javax.swing.JButton clockStart;
     private javax.swing.JLabel clockText;
     private javax.swing.JPanel devicePanel;
@@ -1786,6 +1760,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1803,7 +1778,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
