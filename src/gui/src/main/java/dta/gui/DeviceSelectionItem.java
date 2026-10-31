@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package dta.gui;
+package gui.src.main.java.dta.gui;
 
+import dta.devices.ColorDisplayAdapter;
 import dta.devices.Device;
+import dta.devices.PowerController;
 
 /**
  *
@@ -17,9 +19,11 @@ public class DeviceSelectionItem extends javax.swing.JPanel {
      */
 
     public Device device;
+
     public DeviceSelectionItem(Device device) {
         this.device = device;
         initComponents();
+        refreshName();
     }
 
     /**
@@ -70,7 +74,7 @@ public class DeviceSelectionItem extends javax.swing.JPanel {
         });
 
         deviceName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        deviceName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CDA GPU", "PMU" }));
+        deviceName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empty", "CDA GPU", "PMU" }));
         deviceName.setSelectedIndex(1);
         deviceName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,33 +120,49 @@ public class DeviceSelectionItem extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void deviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deviceActionPerformed
+    // all of these are overridden from deviceselectionscreen
+
+    public void deviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deviceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deviceActionPerformed
 
-    private void upActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upActionPerformed
+    public void upActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_upActionPerformed
 
-    private void downActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downActionPerformed
+    public void downActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_downActionPerformed
 
-    private void openPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openPanelActionPerformed
+    public void openPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openPanelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_openPanelActionPerformed
 
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+    public void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteActionPerformed
 
+    public void refreshName(){
+        if (device == null){
+            deviceName.setSelectedItem("Empty");
+        }
+        else if (device instanceof ColorDisplayAdapter){
+            deviceName.setSelectedItem("CDA GPU");
+        }
+        else if (device instanceof PowerController){
+            deviceName.setSelectedItem("PMU");
+        }
+        else {
+            deviceName.setSelectedItem("Unknown Device");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton delete;
-    private javax.swing.JComboBox<String> deviceName;
-    private javax.swing.JLabel deviceNumber;
-    private javax.swing.JButton down;
-    private javax.swing.JButton openPanel;
-    private javax.swing.JButton up;
+    public javax.swing.JButton delete;
+    public javax.swing.JComboBox<String> deviceName;
+    public javax.swing.JLabel deviceNumber;
+    public javax.swing.JButton down;
+    public javax.swing.JButton openPanel;
+    public javax.swing.JButton up;
     // End of variables declaration//GEN-END:variables
 }

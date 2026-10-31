@@ -6,7 +6,13 @@ package gui.src.main.java.dta.gui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import dta.components.DSC;
-import dta.gui.DeviceSelectionItem;
+import dta.devices.ColorDisplayAdapter;
+import dta.devices.Device;
+import dta.devices.PowerController;
+
+import java.awt.event.ActionEvent;
+import java.text.ParseException;
+import java.util.Objects;
 
 /**
  *
@@ -195,7 +201,12 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deviceNumberStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_deviceNumberStateChanged
-        int spinnerValue = (int)(Number)(deviceNumber.getValue());
+        try {
+            deviceNumber.commitEdit();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        int spinnerValue = ((Number)(deviceNumber.getValue())).intValue();
         while (dsc.devices.size() != spinnerValue){
             if (dsc.devices.size() > spinnerValue){
                 dsc.devices.remove(dsc.devices.size()-1);
@@ -203,13 +214,65 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
                 dsc.devices.add(null);
             }
         }
+        addDevicePanels();
+        deviceListPanel.revalidate();
+        deviceListPanel.repaint();
     }//GEN-LAST:event_deviceNumberStateChanged
 
     public void addDevicePanels(){
         deviceListPanel.removeAll();
         for (int i = 0; i < dsc.devices.size(); i++) {
-            deviceListPanel.add(new DeviceSelectionItem(dsc.devices.get(i)));
+            int finalI = i;
+            deviceListPanel.add(
+                    new DeviceSelectionItem(
+                            dsc.devices.get(finalI)
+                    ){
+                        {deviceNumber.setText(String.valueOf(finalI));}
+                        @Override
+                        public void deviceActionPerformed(ActionEvent evt) {
+                            Device newDevice = null;
+                            switch ((String)Objects.requireNonNull(deviceName.getSelectedItem())){
+                                case "CDA GPU":
+                                    newDevice = new ColorDisplayAdapter(false);
+                                    break;
+                                case "PMU":
+                                    newDevice = new PowerController(null);
+                                    break;
+                            }
+                            device = newDevice;
+                            dsc.devices.set(finalI, newDevice);
+                            deviceNumber.setText(String.valueOf(finalI));
+                        }
+                        @Override
+                        public void upActionPerformed(ActionEvent evt){
+                            if (finalI < 1) return;
+                            Device device = dsc.devices.get(finalI);
+                            dsc.devices.set(finalI, dsc.devices.get(finalI-1));
+                            dsc.devices.set(finalI-1, device);
+                            addDevicePanels();
+                        }
+                        @Override
+                        public void downActionPerformed(ActionEvent evt){
+                            if (finalI >= dsc.devices.size()-1) return;
+                            Device device = dsc.devices.get(finalI);
+                            dsc.devices.set(finalI, dsc.devices.get(finalI+1));
+                            dsc.devices.set(finalI+1, device);
+                            addDevicePanels();
+                        }
+                        @Override
+                        public void openPanelActionPerformed(ActionEvent evt){
+                            // todo later
+                        }
+                        @Override
+                        public void deleteActionPerformed(ActionEvent evt){
+                            dsc.devices.remove(finalI);
+                            addDevicePanels();
+                        }
+                    }
+            );
         }
+        deviceListPanel.revalidate();
+        deviceListPanel.repaint();
     }
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
@@ -224,7 +287,11 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeviceSelectionScreen(null).setVisible(true);
+                DSC dsc = new DSC();
+                dsc.devices.add(new ColorDisplayAdapter(false));
+                dsc.devices.add(null);
+                dsc.devices.add(new PowerController(null));
+                new DeviceSelectionScreen(dsc).setVisible(true);
             }
         });
     }
