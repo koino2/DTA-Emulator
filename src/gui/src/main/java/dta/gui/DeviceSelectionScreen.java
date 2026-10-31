@@ -35,6 +35,10 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
         addDevicePanels();
+
+        deviceNumber.setValue(dsc.devices.size());
+
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(10);
     }
 
     /**
@@ -58,6 +62,8 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         deviceNumber = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        debug = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 400));
@@ -84,7 +90,7 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 338, Short.MAX_VALUE)
+                        .addGap(0, 298, Short.MAX_VALUE)
                         .addComponent(confirm)))
                 .addContainerGap())
         );
@@ -131,6 +137,10 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
         jLabel4.setText("DTA Emulator 26.11");
 
+        debug.setText("jLabel5");
+        //debug.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jScrollPane2.setViewportView(debug);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -138,6 +148,7 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -155,7 +166,9 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deviceNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addContainerGap())
         );
@@ -207,6 +220,7 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
             throw new RuntimeException(e);
         }
         int spinnerValue = ((Number)(deviceNumber.getValue())).intValue();
+        if (spinnerValue < 0){deviceNumber.setValue(0);return;}
         while (dsc.devices.size() != spinnerValue){
             if (dsc.devices.size() > spinnerValue){
                 dsc.devices.remove(dsc.devices.size()-1);
@@ -242,6 +256,7 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
                             device = newDevice;
                             dsc.devices.set(finalI, newDevice);
                             deviceNumber.setText(String.valueOf(finalI));
+                            refreshDebugText();
                         }
                         @Override
                         public void upActionPerformed(ActionEvent evt){
@@ -271,8 +286,21 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
                     }
             );
         }
+
+        refreshDebugText();
+
         deviceListPanel.revalidate();
         deviceListPanel.repaint();
+    }
+
+    public void refreshDebugText(){
+        StringBuilder text = new StringBuilder(new String());
+
+        for (int i = 0; i < dsc.devices.size(); i++) {
+            text.append("\n DSC Slot ").append(i).append(": ").append(dsc.devices.get(i));
+        }
+
+        debug.setText(text.toString());
     }
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
@@ -288,9 +316,6 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 DSC dsc = new DSC();
-                dsc.devices.add(new ColorDisplayAdapter(false));
-                dsc.devices.add(null);
-                dsc.devices.add(new PowerController(null));
                 new DeviceSelectionScreen(dsc).setVisible(true);
             }
         });
@@ -298,6 +323,7 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirm;
+    private javax.swing.JTextArea debug;
     private javax.swing.JPanel deviceListPanel;
     private javax.swing.JSpinner deviceNumber;
     private javax.swing.JLabel jLabel1;
@@ -309,5 +335,6 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

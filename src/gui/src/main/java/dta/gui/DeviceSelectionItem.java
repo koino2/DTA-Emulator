@@ -8,6 +8,8 @@ import dta.devices.ColorDisplayAdapter;
 import dta.devices.Device;
 import dta.devices.PowerController;
 
+import java.awt.*;
+
 /**
  *
  * @author anc
@@ -24,6 +26,7 @@ public class DeviceSelectionItem extends javax.swing.JPanel {
         this.device = device;
         initComponents();
         refreshName();
+        setMaximumSize(new Dimension(3000, 62));
     }
 
     /**

@@ -1633,7 +1633,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_deviceSelectorStateChanged
 
     private void editDevicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editDevicesActionPerformed
-        // TODO add your handling code here:
+        new DeviceSelectionScreen(processor.dsc).setVisible(true);
     }//GEN-LAST:event_editDevicesActionPerformed
 
     private void registerValueChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_registerValueChanged
