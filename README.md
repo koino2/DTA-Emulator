@@ -1,3 +1,4 @@
+![Alt text](https://raw.githubusercontent.com/koino2/DTA-Emulator/master/banner.png)
 # DTA Emulator
 This project is an emulator for a simple DTA architecture processor made from scratch in java. 
 
