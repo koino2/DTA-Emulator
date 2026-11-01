@@ -9,6 +9,7 @@ import dta.components.DSC;
 import dta.devices.ColorDisplayAdapter;
 import dta.devices.Device;
 import dta.devices.PowerController;
+import dta.gui.EmptyDevice;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -227,7 +228,7 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
             if (dsc.devices.size() > spinnerValue){
                 dsc.devices.remove(dsc.devices.size()-1);
             } else {
-                dsc.devices.add(null);
+                dsc.devices.add(new EmptyDevice());
             }
         }
         addDevicePanels();
@@ -253,6 +254,9 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
                                     break;
                                 case "PMU":
                                     newDevice = new PowerController(null);
+                                    break;
+                                case "Empty":
+                                    newDevice = new EmptyDevice();
                                     break;
                             }
                             device = newDevice;

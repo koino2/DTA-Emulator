@@ -19,11 +19,13 @@ import dta.devices.Device;
 import dta.gui.DeviceInterface;
 import dta.gui.GPUInterface;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -54,8 +56,8 @@ public class EmulatorGUI extends javax.swing.JFrame {
             @Override
             public void tick() {
                 processor.tick();
-                refreshUI();//FromProcessor();
-                //afterTick();
+                //refreshUI()
+                afterTick();
             }
         };
         processor.clock.initClock();
@@ -72,6 +74,12 @@ public class EmulatorGUI extends javax.swing.JFrame {
         initOutput();
 
         initMemoryRefresh();
+
+        updateFreq.setValue(100);
+
+        setTitle("DTA Emulator");
+
+        memoryTable.setEnabled(false);
     }
 
     public boolean tableUpdating = false;
@@ -87,7 +95,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         });
     }
 
-    public int tickEvery = 0;
+    public int tickEvery = 1000;
     public int ticksSince = 0;
 
     public void afterTick(){
@@ -156,6 +164,19 @@ public class EmulatorGUI extends javax.swing.JFrame {
         DSC_P2.setBackground(getPinColor(processor.pins.get(5)));
         DSC_P3.setBackground(getPinColor(processor.pins.get(6)));
         DSC_P4.setBackground(getPinColor(processor.pins.get(7)));
+
+        String clockString = "";
+        clockString += "ClockTime: "+processor.clock.clockTime;
+        clockString += "\nRunning: "+processor.clock.running;
+        clockString += "\nTicks: "+processor.clock.ticks;
+
+        clockText.setText(clockString);
+        
+        instructionDecoderText.setText(
+                "IR1: "+processor.IR1.hardwareGetValue()+
+                "\nIR2: "+processor.IR2.hardwareGetValue()+
+                "\nIR3: "+processor.IR3.hardwareGetValue()
+        );
 
         processor.clock.setClockSpeed(
                 ((Number) clockFreq.getValue()).intValue()
@@ -355,7 +376,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         clockFreq = new javax.swing.JSpinner();
         jLabel20 = new javax.swing.JLabel();
         clockStart = new javax.swing.JButton();
-        clockText = new javax.swing.JLabel();
+        clockText = new JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -431,8 +452,22 @@ public class EmulatorGUI extends javax.swing.JFrame {
         outputText = new javax.swing.JTextArea();
         Titlebar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        icon = new javax.swing.JPanel();
+        BufferedImage img;
+        try {
+            img = ImageIO.read(new File("assets/icon.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        icon = new javax.swing.JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
+            }
+        };
+        setIconImage(img);
         Exit = new javax.swing.JButton();
+
+        clockText.setEditable(false);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -1656,7 +1691,12 @@ public class EmulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_RAM_WRITEActionPerformed
 
     private void updateFreqStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_updateFreqStateChanged
-        // TODO add your handling code here:
+        try {
+            updateFreq.commitEdit();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        tickEvery = ((Number)(updateFreq.getValue())).intValue();
     }//GEN-LAST:event_updateFreqStateChanged
 
     private void averageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_averageActionPerformed
@@ -1750,7 +1790,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox average;
     private javax.swing.JSpinner clockFreq;
     private javax.swing.JButton clockStart;
-    private javax.swing.JLabel clockText;
+    private javax.swing.JTextArea clockText;
     private javax.swing.JPanel devicePanel;
     private javax.swing.JSpinner deviceSelector;
     private javax.swing.JButton editDevices;

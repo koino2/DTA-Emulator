@@ -7,6 +7,7 @@ package gui.src.main.java.dta.gui;
 import dta.devices.ColorDisplayAdapter;
 import dta.devices.Device;
 import dta.devices.PowerController;
+import dta.gui.EmptyDevice;
 
 import java.awt.*;
 
@@ -146,7 +147,7 @@ public class DeviceSelectionItem extends javax.swing.JPanel {
     }//GEN-LAST:event_deleteActionPerformed
 
     public void refreshName(){
-        if (device == null){
+        if (device == null || device instanceof EmptyDevice){
             deviceName.setSelectedItem("Empty");
         }
         else if (device instanceof ColorDisplayAdapter){

@@ -28,7 +28,7 @@ public class GPUInterface extends DeviceInterface {
         Graphics imgGraphics = img.createGraphics();
         for (int y = 0; y < cda.screen.length; y++) {
             for (int x = 0; x < cda.screen[y].length; x++) {
-                imgGraphics.setColor(cda.screen[y][x]);
+                imgGraphics.setColor(cda.screen[x][y]);
                 imgGraphics.fillRect(x, y, 1, 1);
             }
         }

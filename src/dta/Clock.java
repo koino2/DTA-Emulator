@@ -18,6 +18,8 @@ public abstract class Clock {
         nanosPerTick = (float) (clockTime * 1000000000);
     }
 
+    public int ticks;
+
     public void initClock() {
         Thread thread = new Thread(() -> {
             while (true) {
@@ -30,6 +32,7 @@ public abstract class Clock {
                 //System.out.println("trying to tick");
                 for (int i = 0; i < ticks; i++) {
                     tick();
+                    this.ticks += 1;
                     //System.out.println("tick");
                 }
 
@@ -47,7 +50,7 @@ public abstract class Clock {
     boolean initialized;
 
     public void startClock() {
-        System.out.println(initialized);
+        //System.out.println(initialized);
         lastTickTime = System.nanoTime();
         running = true;
     }
