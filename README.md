@@ -1,9 +1,10 @@
 # DTA Emulator
 This project is an emulator for a simple DTA architecture processor. 
 
-> **To Stardance voters:**  
+> ### **To Stardance voters:**  
 > This application has been built for **Windows only**, as I do not have any other operating systems, and the GUI has been optimised for 1080p screens only.  
-> If the application does not work properly, or the UI is scuffed, please skip the project.
+> If the application does not work properly, or the UI is scuffed, please skip the project.   
+> Also, you need Java 18+ JDK installed in order for this to work, since the program is in the form of a jar.
 
 ## Usage
 Download the release zip from the releases tab on github, unzip it and run DTA-Emulator.exe.

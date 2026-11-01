@@ -3,6 +3,7 @@ This tutorial is for people who don't care about the ISA and just want to run  p
 
 Here, I will walk you through the steps to start running a program of a 3D cube renderer.
 
+Follow these steps **exactly**:
 - Download the program code from **https://github.com/koino2/DTA-CPU/blob/master/programs/3d_cube/comb.asm**
 - Open the app, choose **Import program** in the top bar and open that program file.
 - Set the **ROM size to 3000** (in the memory section).
