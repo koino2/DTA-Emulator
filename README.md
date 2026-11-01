@@ -8,7 +8,7 @@ This project is an emulator for a simple DTA architecture processor made from sc
 > If the application does not work properly, or the UI is scuffed, please skip the project.
 
 ## Usage
-Download the release zip from the releases tab on github, unzip it and run DTA-Emulator.jar. Make sure the ``assets`` folder is in the same working directory as the program.
+Download the release zip from the releases tab on github or from [this link](https://github.com/koino2/DTA-Emulator/releases/tag/release), unzip it and run DTA-Emulator.jar. Make sure the ``assets`` folder is in the same working directory as the program.
 
 Alternatively, clone the Github repo and build it yourself with **main class EmulatorGUI.**
 
