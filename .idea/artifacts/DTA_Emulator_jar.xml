@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DTA-Emulator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DTA_Emulator_jar</output-path>
+    <root id="archive" name="DTA-Emulator.jar">
+      <element id="module-output" name="DTA-Emulator" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/formdev/flatlaf/3.7.2/flatlaf-3.7.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
