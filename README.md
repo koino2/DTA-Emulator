@@ -11,7 +11,7 @@ Download the release zip from the releases tab on github, unzip it and run DTA-E
 
 Alternatively, clone the Github repo and build it yourself with **main class EmulatorGUI.**
 
-### **Follow the tutorial in HowToRunPrograms.md (in the source directory) to start using the processor!**
+### **Follow the tutorial in HowToRunPrograms.md (in the source directory or from https://github.com/koino2/DTA-Emulator/blob/master/HowToRunPrograms.md) to start using the processor!**
 
 ## ISA / CPU Architecture
 The project emulates a DTA (Data Transfer Architecture) processor, which is a minimal, 3 instruction ISA.  
