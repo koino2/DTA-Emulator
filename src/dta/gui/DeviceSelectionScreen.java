@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package gui.src.main.java.dta.gui;
+package dta.gui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import dta.components.DSC;
 import dta.devices.ColorDisplayAdapter;
 import dta.devices.Device;
 import dta.devices.PowerController;
-import dta.gui.EmptyDevice;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -3,13 +3,12 @@ This project is an emulator for a simple DTA architecture processor made from sc
 
 > ### **To Stardance voters:**  
 > This application has been built for **Windows only**, as I do not have any other operating systems, and the GUI has been optimised for 1080p screens only.  
-> Also, you need Java 18+ JDK installed in order for this to work, since the program is in the form of a jar.  
-> If the application does not work properly, or the UI is scuffed, please skip the project.
+> **If the application does not work properly, or the UI is scuffed, please skip the project.**
 
 ## Usage
-Download the release zip from the releases tab on github, unzip it and run DTA-Emulator.jar. Make sure the ``assets`` folder is in the same working directory as the program.
+Download the release zip from the releases tab on github, unzip it and run ``DTA-Emulator.exe``. Make sure the ``assets``, ``runtime``, and ``app`` folders is in the same working directory as the program.
 
-Alternatively, clone the Github repo and build it yourself with **main class EmulatorGUI.**
+Alternatively, clone the Github repo and build it yourself with main class ``Main`` (It is just a normal java project).
 
 ### **Follow the tutorial in HowToRunPrograms.md (in the source directory or from https://github.com/koino2/DTA-Emulator/blob/master/HowToRunPrograms.md) to start using the processor!**
 
