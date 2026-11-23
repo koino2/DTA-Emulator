@@ -1,5 +1,5 @@
 # DTA Emulator
-This project is an emulator for a simple DTA architecture processor made from scratch in java. 
+This project is an emulator for a simple DTA architecture processor made from scratch in java, with an inbuilt assembler and GUI. 
 
 > ### **To Stardance voters:**  
 > This application has been built for **Windows only**, as I do not have any other operating systems, and the GUI has been optimised for 1080p screens only.  
