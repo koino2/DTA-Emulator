@@ -10,6 +10,7 @@
 package dta.gui;
 
 import assembler.Assembler;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import dta.Clock;
 import dta.Pin;
@@ -46,6 +47,8 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
     boolean refreshingUI = false;
 
+    Color bgColor = new java.awt.Color(27, 28, 32);
+
     public EmulatorGUI(Processor processor) {
         this.processor = processor;
 
@@ -60,7 +63,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         };
         processor.clock.initClock();
 
-        FlatLightLaf.setup();
+        FlatDarkLaf.setup();
         initComponents();
 
         setLocationRelativeTo(null);
@@ -78,6 +81,9 @@ public class EmulatorGUI extends javax.swing.JFrame {
         setTitle("DTA Emulator");
 
         memoryTable.setEnabled(false);
+
+        getContentPane().setBackground(new Color(45, 71, 81, 155));
+        setBackground(bgColor);
     }
 
     public boolean tableUpdating = false;
@@ -106,7 +112,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
     public void refreshUI(){
         refreshUIFromProcessor();
-        //refreshMemoryFromProcessor();
+        refreshMemoryFromProcessor();
     }
 
     public void refreshUIFromProcessor(){
@@ -169,7 +175,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         clockString += "\nTicks: "+processor.clock.ticks;
 
         clockText.setText(clockString);
-        
+
         instructionDecoderText.setText(
                 "IR1: "+processor.IR1.hardwareGetValue()+
                 "\nIR2: "+processor.IR2.hardwareGetValue()+
@@ -212,7 +218,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         refreshingUI = false;
     }
 
-    Color clockStartColor = new Color(109, 255, 69);
+    Color clockStartColor = new Color(77, 182, 49);
     Color clockStopColor = new Color(255, 47, 47);
 
     public JPanel getDeviceInterface(Device device){
@@ -281,7 +287,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         processor.memory.ROMSize = (int) ROMSize.getValue();
     }
 
-    public Color defaultPinColor = new JButton().getBackground();
+    public Color defaultPinColor = new Color(22, 33, 53);
     public Color activatedPinColor = new Color(255, 245, 19);
 
     public void initOutput(){
@@ -474,7 +480,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        mainPanel.setBackground(new java.awt.Color(204, 204, 204));
+        mainPanel.setBackground(bgColor);
 
         importProgram.setText("Import Program");
         importProgram.addActionListener(new java.awt.event.ActionListener() {
@@ -678,7 +684,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setText("PC_VAL");
+        jLabel16.setText("PC_VALUE");
 
         PC_TARGET.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -851,7 +857,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        memoryTable.setPreferredSize(new java.awt.Dimension(100, 100));
+        //memoryTable.setPreferredSize(new java.awt.Dimension(100, 100));
         jScrollPane4.setViewportView(memoryTable);
 
         R_ADDR.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -1715,7 +1721,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
     public Point mouseStart;
     public Point windowStart;
-    
+
     private void TitlebarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitlebarMouseDragged
         Point mouseNow = evt.getLocationOnScreen();
         setLocation(windowStart.x + mouseNow.x - mouseStart.x, windowStart.y + mouseNow.y - mouseStart.y);

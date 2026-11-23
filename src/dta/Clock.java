@@ -29,10 +29,11 @@ public abstract class Clock {
                 float numberOfTicks = timeSinceLastTick / nanosPerTick;
                 int ticks = (int) Math.floor(numberOfTicks);
 
+                this.ticks = ticks;
+
                 //System.out.println("trying to tick");
                 for (int i = 0; i < ticks; i++) {
                     tick();
-                    this.ticks += 1;
                     //System.out.println("tick");
                 }
 
