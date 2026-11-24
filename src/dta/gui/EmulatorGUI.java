@@ -112,7 +112,6 @@ public class EmulatorGUI extends javax.swing.JFrame {
 
     public void refreshUI(){
         refreshUIFromProcessor();
-        refreshMemoryFromProcessor();
     }
 
     public void refreshUIFromProcessor(){
@@ -122,6 +121,8 @@ public class EmulatorGUI extends javax.swing.JFrame {
         }
 
         refreshingUI = true;
+
+        refreshMemoryFromProcessor();
 
         R_ADDR.setValue(processor.registers.get(0).hardwareGetValue());
         R_OUT.setValue(processor.registers.get(1).hardwareGetValue());
@@ -245,6 +246,8 @@ public class EmulatorGUI extends javax.swing.JFrame {
             }
         }
 
+        refreshMemoryFromProcessor();
+
         processor.registers.get(0).hardwareSetValue((int)R_ADDR.getValue());
         processor.registers.get(1).hardwareSetValue((int)R_OUT.getValue());
         processor.registers.get(2).hardwareSetValue((int)R_OUT1.getValue());
@@ -317,7 +320,13 @@ public class EmulatorGUI extends javax.swing.JFrame {
         DefaultTableModel memoryTableModel = (DefaultTableModel) memoryTable.getModel();
         memoryTableModel.setRowCount(0);
         for (int i = 0; i < processor.memory.values.length; i++) {
-            memoryTableModel.addRow(new Object[]{i, processor.memory.values[i]});
+            int value;
+            if (i <= processor.memory.ROMSize-1 && processor.memory.ROM.length > i){
+                value = processor.memory.ROM[i];
+            } else {
+                value = processor.memory.values[i];
+            }
+            memoryTableModel.addRow(new Object[]{i, value});
         }
         tableUpdating = false;
     }
@@ -1304,7 +1313,7 @@ public class EmulatorGUI extends javax.swing.JFrame {
         });
 
         jLabel44.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel44.setText("DTA Emulator 26.11");
+        jLabel44.setText("DTA Emulator 26.11.1");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);

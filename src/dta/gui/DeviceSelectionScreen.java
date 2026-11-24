@@ -4,6 +4,7 @@
  */
 package dta.gui;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import dta.components.DSC;
 import dta.devices.ColorDisplayAdapter;
@@ -11,6 +12,7 @@ import dta.devices.Device;
 import dta.devices.PowerController;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.util.Objects;
@@ -27,11 +29,13 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
 
     public DSC dsc;
 
+    Color bgColor = new java.awt.Color(27, 28, 32);
+
     public DeviceSelectionScreen(DSC dsc) {
         super("Device Selector");
         this.dsc = dsc;
 
-        FlatLightLaf.setup();
+        FlatDarkLaf.setup();
         initComponents();
         setLocationRelativeTo(null);
 
@@ -40,6 +44,8 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
         deviceNumber.setValue(dsc.devices.size());
 
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(10);
+
+        getContentPane().setBackground(bgColor);
     }
 
     /**
@@ -70,9 +76,9 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 400));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(bgColor);
 
-        confirm.setBackground(new java.awt.Color(102, 255, 102));
+        confirm.setBackground(new java.awt.Color(77, 182, 49));
         confirm.setText("Confirm");
         confirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,7 +143,7 @@ public class DeviceSelectionScreen extends javax.swing.JFrame {
         });
 
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel4.setText("DTA Emulator 26.11");
+        jLabel4.setText("DTA Emulator 26.11.1");
 
         debug.setText("jLabel5");
         //debug.setVerticalAlignment(javax.swing.SwingConstants.TOP);
