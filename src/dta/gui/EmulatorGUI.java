@@ -11,7 +11,6 @@ package dta.gui;
 
 import assembler.Assembler;
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import dta.Clock;
 import dta.Pin;
 import dta.Processor;
@@ -171,9 +170,10 @@ public class EmulatorGUI extends javax.swing.JFrame {
         DSC_P4.setBackground(getPinColor(processor.pins.get(7)));
 
         String clockString = "";
-        clockString += "ClockTime: "+processor.clock.clockTime;
-        clockString += "\nRunning: "+processor.clock.running;
-        clockString += "\nTicks: "+processor.clock.ticks;
+        clockString += String.format("ClockTime: %.8f", processor.clock.clockTime);
+        //clockString += String.format("\nRunning: %b",processor.clock.running);
+        clockString += String.format("\nTicks: %d", processor.clock.ticks);
+        clockString += String.format("\nCycles: %d", processor.clock.cycles);
 
         clockText.setText(clockString);
 

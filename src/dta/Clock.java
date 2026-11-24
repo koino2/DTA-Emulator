@@ -19,6 +19,7 @@ public abstract class Clock {
     }
 
     public int ticks;
+    public int cycles;
 
     public void initClock() {
         Thread thread = new Thread(() -> {
@@ -29,16 +30,16 @@ public abstract class Clock {
                 float numberOfTicks = timeSinceLastTick / nanosPerTick;
                 int ticks = (int) Math.floor(numberOfTicks);
 
-                this.ticks = ticks;
-
                 //System.out.println("trying to tick");
                 for (int i = 0; i < ticks; i++) {
                     tick();
+                    cycles += 1;
                     //System.out.println("tick");
                 }
 
                 if (ticks > 0) {
                     lastTickTime += (long) (ticks * nanosPerTick);
+                    this.ticks = ticks;
                 }
             }
         });
