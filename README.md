@@ -1,6 +1,8 @@
 # DTA Emulator
 This project is an emulator for a simple DTA architecture processor made from scratch in java, with an inbuilt assembler and flatLaf dark themed GUI.
 
+### Also see the second repo, [DTA-CPU](github.com/koino2/DTA-CPU)
+
 > ### Warning
 > This software has been built for only Windows machines, and the GUI is fixed-scale and optimized for 1080p monitors only.  
 > 
